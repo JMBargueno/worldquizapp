@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.salesianostriana.worldquizapp.R;
 import com.salesianostriana.worldquizapp.model.UserEntity;
 
@@ -45,6 +46,8 @@ public class MyUserEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyUser
         holder.nombreUsuario.setText(holder.mItem.getEmail());
         holder.puntos.setText(String.valueOf(holder.mItem.getTotalPoints()));
         holder.efectividad.setText(String.valueOf(holder.mItem.getAverageScore()));
+
+        Glide .with(context).load(holder.mItem.getUrlFoto()).into(holder.fotoPerfil);
 
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
