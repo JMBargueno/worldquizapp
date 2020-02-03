@@ -15,7 +15,7 @@
         android:id="@+id/navigation_countries"
         android:name="com.salesianostriana.worldquizapp.CountryFragment"
         android:label="@string/title_countries"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_country" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
