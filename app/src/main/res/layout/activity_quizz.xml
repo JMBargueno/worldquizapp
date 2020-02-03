@@ -7,14 +7,83 @@
     tools:context=".QuizzActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewQuestion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:gravity="center"
+        android:padding="18dp"
         android:text="TextView"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonOption1"
+        android:layout_width="237dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="256dp"
+        android:layout_marginEnd="87dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuestion" />
+
+    <Button
+        android:id="@+id/buttonOption2"
+        android:layout_width="237dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="87dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOption1" />
+
+    <Button
+        android:id="@+id/buttonOption3"
+        android:layout_width="237dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="87dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOption2" />
+
+    <Button
+        android:id="@+id/buttonPrevious"
+        android:layout_width="158dp"
+        android:layout_height="77dp"
+        android:text="@string/button_previous"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="158dp"
+        android:layout_height="77dp"
+        android:text="@string/button_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewProgress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonNext"
+        app:layout_constraintStart_toEndOf="@+id/buttonPrevious"
+        app:layout_constraintTop_toTopOf="@+id/buttonPrevious" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
