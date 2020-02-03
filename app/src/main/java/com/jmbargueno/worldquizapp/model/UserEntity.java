@@ -3,7 +3,8 @@ package com.jmbargueno.worldquizapp.model;
 import lombok.Data;
 
 @Data
-public class UserEntity {
+public class
+UserEntity {
 
     private String name, surname, nickname, email;
     private int totalPoints, attemps;
