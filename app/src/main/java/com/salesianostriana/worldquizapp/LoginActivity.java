@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         catch(ApiException e){
             Toast.makeText(LoginActivity.this, "El registro no se pudo completar",Toast.LENGTH_SHORT).show();
-            FirebaseGoogleAuth(null);
+            //FirebaseGoogleAuth(null);
         }
     }
 
