@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // the GoogleSignInAccount will be non-null.
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
+        //updateUI(account);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        /*Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);*/
     }
 
     @Override
@@ -63,25 +63,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
+        //if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
-    }
+    //}
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            updateUI(account);
+            //updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            updateUI(null);
+            //Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+            //updateUI(null);
         }
     }
 }

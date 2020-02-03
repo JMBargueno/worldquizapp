@@ -19,6 +19,8 @@ import com.salesianostriana.worldquizapp.repository.CountryService;
 import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 
 import java.io.IOException;
+import java.text.Collator;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -139,6 +141,7 @@ public class CountryFragment extends Fragment {
 
             }catch (IOException e){
                 e.printStackTrace();
+                Toast.makeText(context, "Error de conexión", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -147,6 +150,7 @@ public class CountryFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<Country> countries) {
+            Collections.sort(countries);
 
             recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(countries, mListener));
             Toast.makeText(context, "Countries loaded", Toast.LENGTH_SHORT).show();

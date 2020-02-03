@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
-public class Country {
+public class Country implements Comparable<Country> {
 
     @SerializedName("name")
     @Expose
@@ -84,5 +84,8 @@ public class Country {
     private String cioc;
 
 
-
+    @Override
+    public int compareTo(Country o) {
+        return this.getName().compareToIgnoreCase(o.getName());
+    }
 }

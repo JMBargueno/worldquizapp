@@ -1,6 +1,7 @@
 package com.salesianostriana.worldquizapp.repository.retrofit;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -13,32 +14,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    private static Retrofit retrofit;
-    private static final String BASE_URL = "https://restcountries.eu/rest/v2/";
-
-    public static Retrofit getRetrofitInstance() {
-        if(retrofit == null){
-            retrofit = new retrofit2.Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return retrofit;
-    }
-
+    public static final String BASE_URL = "https://restcountries.eu/";
 
     private static HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS);
 
-    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+    private static OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+
+    private static OkHttpClient httpClient = new OkHttpClient.Builder()
+            .connectTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
+            .build();
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .client(httpClient)
                     .addConverterFactory(GsonConverterFactory.create());
+
+    public static Retrofit retrofit = null;
+
 
     public static <S> S createService(Class<S> serviceClass) {
         if(!httpClient.interceptors().contains(logging)){
-            httpClient.addInterceptor(new Interceptor() {
+            httpClientBuilder.addInterceptor(new Interceptor() {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request original = chain.request();
@@ -55,8 +54,8 @@ public class ServiceGenerator {
                     return chain.proceed(request);
                 }
             });
-            httpClient.addInterceptor(logging);
-            builder.client(httpClient.build());
+            httpClientBuilder.addInterceptor(logging);
+            builder.client(httpClientBuilder.build());
             retrofit = builder.build();
         }
         return retrofit.create(serviceClass);

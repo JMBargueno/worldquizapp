@@ -3,6 +3,7 @@ package com.salesianostriana.worldquizapp;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.salesianostriana.worldquizapp.CountryFragment.OnListFragmentInteractionListener;
 import com.salesianostriana.worldquizapp.model.Country;
 
@@ -45,10 +47,32 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
         holder.txtCapital.setText(holder.mItem.getCapital());
         holder.txtLanguage.setText(holder.mItem.getLanguages().get(0).getName());
 
+        Uri uri = Uri.parse(holder.mItem.getFlag());
+
         Glide
                 .with(ctx)
-                .load(holder.mItem.getFlag())
+                .load(uri)
                 .into(holder.imageCountry);
+
+        //Icons country
+
+        Glide
+                .with(ctx)
+                .load(R.drawable.ic_coins)
+                .into(holder.imageCurrency);
+
+        Glide
+                .with(ctx)
+                .load(R.drawable.ic_capital)
+                .into(holder.imageCapital);
+
+        Glide
+                .with(ctx)
+                .load(R.drawable.ic_language)
+                .into(holder.imageLanguage);
+
+
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +94,9 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final ImageView imageCountry;
+        public final ImageView imageLanguage;
+        public final ImageView imageCapital;
+        public final ImageView imageCurrency;
         public final TextView txtName;
         public final TextView txtCurrency;
         public final TextView txtCapital;
@@ -80,6 +107,9 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
             super(view);
             mView = view;
             imageCountry = view.findViewById(R.id.imageViewCountry);
+            imageLanguage = view.findViewById(R.id.imageViewLanguage);
+            imageCapital = view.findViewById(R.id.imageViewCapital);
+            imageCurrency = view.findViewById(R.id.imageViewCurrency);
             txtName = view.findViewById(R.id.textViewCountryName);
             txtCurrency = view.findViewById(R.id.textViewCurrency);
             txtCapital = view.findViewById(R.id.textViewCapital);

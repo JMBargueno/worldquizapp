@@ -3,6 +3,7 @@ package com.salesianostriana.worldquizapp;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.salesianostriana.worldquizapp.model.Country;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,7 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,4 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onListFragmentInteraction(Country item) {
+
+    }
 }
