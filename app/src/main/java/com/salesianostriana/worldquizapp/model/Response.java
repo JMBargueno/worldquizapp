@@ -1,4 +1,4 @@
-package com.jmbargueno.worldquizapp.model;
+package com.salesianostriana.worldquizapp.model;
 
 import lombok.Data;
 

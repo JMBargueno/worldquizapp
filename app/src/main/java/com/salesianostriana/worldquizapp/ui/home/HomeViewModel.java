@@ -1,4 +1,4 @@
-package com.jmbargueno.worldquizapp.ui.home;
+package com.salesianostriana.worldquizapp.ui.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

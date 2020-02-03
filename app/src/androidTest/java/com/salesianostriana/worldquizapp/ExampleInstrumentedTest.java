@@ -1,4 +1,4 @@
-package com.jmbargueno.worldquizapp;
+package com.salesianostriana.worldquizapp;
 
 import android.content.Context;
 

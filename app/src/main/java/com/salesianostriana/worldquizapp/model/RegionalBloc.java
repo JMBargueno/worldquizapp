@@ -1,5 +1,5 @@
 
-package com.jmbargueno.worldquizapp.model;
+package com.salesianostriana.worldquizapp.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
