@@ -1,4 +1,4 @@
-package com.jmbargueno.worldquizapp.ui.home;
+package com.salesianostriana.worldquizapp.ui.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.jmbargueno.worldquizapp.R;
+import com.salesianostriana.worldquizapp.R;
 
 public class HomeFragment extends Fragment {
 
