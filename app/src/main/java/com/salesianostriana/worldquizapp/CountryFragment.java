@@ -1,6 +1,7 @@
 package com.salesianostriana.worldquizapp;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,8 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.salesianostriana.worldquizapp.model.Country;
+import com.salesianostriana.worldquizapp.repository.CountryService;
+import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
+
+import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * A fragment representing a list of Items.
@@ -24,6 +34,7 @@ public class CountryFragment extends Fragment {
 
     Context context;
     RecyclerView recyclerView;
+    CountryService service;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -71,7 +82,9 @@ public class CountryFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+
+            service = ServiceGenerator.createService(CountryService.class);
+            new CountriesAsyncTask().execute();
         }
         return view;
     }
@@ -107,5 +120,36 @@ public class CountryFragment extends Fragment {
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Country item);
+    }
+
+    public class CountriesAsyncTask extends AsyncTask<List<Country>, Void, List<Country>>{
+
+        @Override
+        protected List<Country> doInBackground(List<Country>... lists) {
+
+            Call<List<Country>> call = service.getAllCountries();
+            Response<List<Country>> response = null;
+
+            try{
+                response = call.execute();
+
+                if(response.isSuccessful()){
+                    return response.body();
+                }
+
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<Country> countries) {
+
+            recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(countries, mListener));
+            Toast.makeText(context, "Countries loaded", Toast.LENGTH_SHORT).show();
+        }
     }
 }
