@@ -1,4 +1,4 @@
-package com.salesianostriana.worldquizapp.repository.generator;
+package com.salesianostriana.worldquizapp.repository.retrofit;
 
 import java.io.IOException;
 
