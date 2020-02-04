@@ -12,7 +12,7 @@ public class CountryRepository {
     private static CountryRepository countryRepositoryInstance = null;
     private List<Country> listCountry;
 
-    public CountryRepository() {
+    private CountryRepository() {
 
         this.listCountry = new ArrayList<Country>();
     }
