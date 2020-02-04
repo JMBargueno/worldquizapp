@@ -9,12 +9,17 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.salesianostriana.worldquizapp.repository.CountryRepository;
 import com.salesianostriana.worldquizapp.repository.CountryService;
 import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 
+
 import com.salesianostriana.worldquizapp.model.Country;
+import com.salesianostriana.worldquizapp.ui.country.CountryFragment;
+
+import com.salesianostriana.worldquizapp.model.UserEntity;
 
 
 import androidx.annotation.NonNull;
@@ -25,13 +30,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener {
+
+public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener, IRankingListener {
+
 
     private Country item;
     // private CountryService service;
@@ -52,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         NavigationUI.setupWithNavController(navView, navController);
 
         //Al cargar el app se cargan todos los paises en un repositorio
-       // service = ServiceGenerator.createService(CountryService.class);
+        // service = ServiceGenerator.createService(CountryService.class);
         //Call<List<Country>> call = service.getAllCountries();
         // call.enqueue(new Callback<List<Country>>() {
         //     @Override
@@ -75,13 +83,13 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         // });
 
 
-
     }
 
     @Override
     public void onListFragmentInteraction(Country item) {
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,13 +100,20 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.buttonGoQuizz:
-                    Intent i = new Intent(MainActivity.this, QuizzActivity.class);
-                    startActivity(i);
+                Intent i = new Intent(MainActivity.this, QuizzActivity.class);
+                startActivity(i);
                 break;
 
         }
         return super.onOptionsItemSelected(item);
+
+
+    }
+
+    @Override
+    public void onclickRanking(UserEntity u) {
+
     }
 }

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_countries"
-        android:name="com.salesianostriana.worldquizapp.CountryFragment"
+        android:name="com.salesianostriana.worldquizapp.ui.country.CountryFragment"
         android:label="@string/title_countries"
         tools:layout="@layout/fragment_country" />
 
@@ -25,7 +25,8 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.salesianostriana.worldquizapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.salesianostriana.worldquizapp.UserEntityRankingFragment"
+        android:label="@string/title_ranking"
+        tools:layout="@layout/fragment_userentity_list" />
+
 </navigation>
