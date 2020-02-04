@@ -18,6 +18,8 @@ import com.salesianostriana.worldquizapp.model.Country;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountryRecyclerViewAdapter.ViewHolder> {
 
     private final List<Country> mValues;
