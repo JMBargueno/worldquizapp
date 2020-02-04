@@ -163,10 +163,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-
-
-
-            //UserEntity usuario = new UserEntity(name,familyName,email,foto.toString(),0,0);
             Toast.makeText(LoginActivity.this, account.getDisplayName() + account.getEmail() ,Toast.LENGTH_SHORT).show();
         }
     }
