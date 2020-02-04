@@ -3,13 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_countries">
 
-    <fragment
+    <!--<fragment
         android:id="@+id/navigation_home"
         android:name="com.salesianostriana.worldquizapp.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" />-->
+
+    <fragment
+        android:id="@+id/navigation_countries"
+        android:name="com.salesianostriana.worldquizapp.CountryFragment"
+        android:label="@string/title_countries"
+        tools:layout="@layout/fragment_country" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

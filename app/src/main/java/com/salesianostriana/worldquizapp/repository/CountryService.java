@@ -10,10 +10,10 @@ import retrofit2.http.Path;
 
 public interface CountryService {
 
-    @GET("/all")
+    @GET("rest/v2/all")
     Call<List<Country>> getAllCountries();
 
-    @GET("/name/{name}")
+    @GET("rest/v2/name/{name}")
     Call<Country> getCountryByName(@Path("name") String name);
 
     @GET("/name/{name}?fullText=true")
