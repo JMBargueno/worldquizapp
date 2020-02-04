@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_countries"
-        android:name="com.salesianostriana.worldquizapp.CountryFragment"
+        android:name="com.salesianostriana.worldquizapp.ui.country.CountryFragment"
         android:label="@string/title_countries"
         tools:layout="@layout/fragment_country" />
 

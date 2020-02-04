@@ -1,4 +1,4 @@
-package com.salesianostriana.worldquizapp;
+package com.salesianostriana.worldquizapp.ui.country;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,8 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.salesianostriana.worldquizapp.CountryFragment.OnListFragmentInteractionListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.salesianostriana.worldquizapp.R;
+import com.salesianostriana.worldquizapp.ui.country.CountryFragment.OnListFragmentInteractionListener;
 import com.salesianostriana.worldquizapp.model.Country;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
 
     private final List<Country> mValues;
     private final OnListFragmentInteractionListener mListener;
+    String flagUrl;
     Context ctx;
 
     public MyCountryRecyclerViewAdapter(List<Country> items, OnListFragmentInteractionListener listener) {
@@ -47,11 +49,11 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
         holder.txtCapital.setText(holder.mItem.getCapital());
         holder.txtLanguage.setText(holder.mItem.getLanguages().get(0).getName());
 
-        Uri uri = Uri.parse(holder.mItem.getFlag());
+        flagUrl = holder.mItem.getFlag();
 
         Glide
                 .with(ctx)
-                .load(uri)
+                .load(holder.mItem.getFlag())
                 .into(holder.imageCountry);
 
         //Icons country

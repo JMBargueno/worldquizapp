@@ -1,4 +1,4 @@
-package com.salesianostriana.worldquizapp;
+package com.salesianostriana.worldquizapp.ui.country;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -14,12 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.salesianostriana.worldquizapp.R;
 import com.salesianostriana.worldquizapp.model.Country;
 import com.salesianostriana.worldquizapp.repository.CountryService;
 import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 
 import java.io.IOException;
-import java.text.Collator;
 import java.util.Collections;
 import java.util.List;
 

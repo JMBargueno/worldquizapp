@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.salesianostriana.worldquizapp.model.Country;
+import com.salesianostriana.worldquizapp.ui.country.CountryFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
