@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "555885105514",
+    "firebase_url": "https://worldquizapp-damtriana.firebaseio.com",
+    "project_id": "worldquizapp-damtriana",
+    "storage_bucket": "worldquizapp-damtriana.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555885105514:android:3446d684beae9d159dd513",
+        "android_client_info": {
+          "package_name": "com.salesianostriana.worldquizapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555885105514-3r6h2rr4sefapgjpikcj2fbfjrgfq922.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salesianostriana.worldquizapp",
+            "certificate_hash": "8e5c90228904cf098ccef957af7bb1ae43cb1cf2"
+          }
+        },
+        {
+          "client_id": "555885105514-4alq4imh8dhr5fehrpn7cf5g4u2vbnvv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZsqYz8w79TLPXwsyjx-11WeI93SRT_pw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555885105514-4alq4imh8dhr5fehrpn7cf5g4u2vbnvv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
