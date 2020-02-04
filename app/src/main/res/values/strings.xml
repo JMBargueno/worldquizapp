@@ -3,13 +3,13 @@
     <string name="title_countries">Countries</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-<<<<<<< HEAD
+
     <string name="navigation_logout">Log Out</string>
     <string name="navigation_doQuiz">Quiz</string>
     <string name="title_activity_quizz">QuizzActivity</string>
     <string name="button_previous">Anterior</string>
     <string name="button_next">Siguiente</string>
-=======
+
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
