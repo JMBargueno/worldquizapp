@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Question {
-    public Country selectedCountry;
     public String title;
+    public Country selectedCountry;
     public Response trueResponse, failResponse, failResponse2;
 }

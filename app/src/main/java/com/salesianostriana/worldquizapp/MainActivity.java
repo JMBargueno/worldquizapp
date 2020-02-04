@@ -2,6 +2,8 @@ package com.salesianostriana.worldquizapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -14,6 +16,7 @@ import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 import com.salesianostriana.worldquizapp.model.Country;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -30,7 +33,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener {
 
     private Country item;
-    private CountryService service;
+    // private CountryService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,27 +51,27 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         NavigationUI.setupWithNavController(navView, navController);
 
         //Al cargar el app se cargan todos los paises en un repositorio
-        service = ServiceGenerator.createService(CountryService.class);
-        Call<List<Country>> call = service.getAllCountries();
-        call.enqueue(new Callback<List<Country>>() {
-            @Override
-            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
-                if (response.isSuccessful()) {
-                    CountryRepository countryRepository = CountryRepository.getInstance();
-                    countryRepository.setListCountry(response.body());
+       // service = ServiceGenerator.createService(CountryService.class);
+        //Call<List<Country>> call = service.getAllCountries();
+        // call.enqueue(new Callback<List<Country>>() {
+        //     @Override
+        //     public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+        //         if (response.isSuccessful()) {
+        //              CountryRepository countryRepository = CountryRepository.getInstance();
+        //               countryRepository.setListCountry(response.body());
 
 
-                } else {
-                    Toast.makeText(MainActivity.this, "Error al realizar la petición", Toast.LENGTH_SHORT).show();
-                }
-            }
+        //          } else {
+        //               Toast.makeText(MainActivity.this, "Error al realizar la petición", Toast.LENGTH_SHORT).show();
+        //          }
+        //      }
 
-            @Override
-            public void onFailure(Call<List<Country>> call, Throwable t) {
-                Log.e("Network Failure", t.getMessage());
-                Toast.makeText(MainActivity.this, "Error al realizar la petición", Toast.LENGTH_SHORT).show();
-            }
-        });
+        //      @Override
+        //     public void onFailure(Call<List<Country>> call, Throwable t) {
+        //        Log.e("Network Failure", t.getMessage());
+        //      Toast.makeText(MainActivity.this, "Error al realizar la petición", Toast.LENGTH_SHORT).show();
+        //   }
+        // });
 
 
 
@@ -77,5 +80,16 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
     @Override
     public void onListFragmentInteraction(Country item) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.upper_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }
