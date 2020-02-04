@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,12 +19,24 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.salesianostriana.worldquizapp.model.UserEntity;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Button btnSignOut;
     private int RC_SIGN_IN = 1;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
             Toast.makeText(LoginActivity.this, "Registro completado con éxito",Toast.LENGTH_SHORT).show();
             FirebaseGoogleAuth(acc);
+
         }
         catch(ApiException e){
             Toast.makeText(LoginActivity.this, "El registro no se pudo completar",Toast.LENGTH_SHORT).show();
@@ -104,6 +117,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Correcto",Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
+                    Intent i = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(i);
                 }else{
                     Toast.makeText(LoginActivity.this, "Incorrecto",Toast.LENGTH_SHORT).show();
                     updateUI(null);
@@ -112,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUI(FirebaseUser fUser){
+    private void updateUI(final FirebaseUser fUser){
         btnSignOut.setVisibility(View.VISIBLE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account != null){
@@ -123,7 +138,36 @@ public class LoginActivity extends AppCompatActivity {
             String id = account.getId();
             Uri foto = account.getPhotoUrl();
 
-            Toast.makeText(LoginActivity.this, name + email ,Toast.LENGTH_SHORT).show();
+
+            final Map<String, Object> usuario = new HashMap<>();
+            usuario.put("name", account.getGivenName());
+            usuario.put("surname", account.getFamilyName());
+            usuario.put("email", account.getEmail());
+            usuario.put("photoUrl", account.getPhotoUrl().toString());
+
+            db.collection("users")
+                    .document(fUser.getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
+                                DocumentSnapshot document = task.getResult();
+                                if(document.exists()){
+                                }else{
+                                    db.collection("users")
+                                            .document(fUser.getUid())
+                                            .set(usuario);
+                                }
+                            }
+                        }
+                    });
+
+
+
+
+            //UserEntity usuario = new UserEntity(name,familyName,email,foto.toString(),0,0);
+            Toast.makeText(LoginActivity.this, account.getDisplayName() + account.getEmail() ,Toast.LENGTH_SHORT).show();
         }
     }
 }
