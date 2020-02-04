@@ -1,11 +1,17 @@
 package com.salesianostriana.worldquizapp.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
-public class UserEntity {
+@AllArgsConstructor
+@NoArgsConstructor
+public class
+UserEntity {
 
-    private String name, surname, nickname, email;
+    private String name, surname, nickname, email,urlFoto;
     private int totalPoints, attemps;
 
 
