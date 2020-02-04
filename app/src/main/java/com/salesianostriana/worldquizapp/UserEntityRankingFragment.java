@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.salesianostriana.worldquizapp.model.UserEntity;
 
 import java.util.ArrayList;
@@ -82,16 +83,17 @@ public class UserEntityRankingFragment extends Fragment {
         }
 
         listaDummyUsuarios = new ArrayList<>();
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",20,10));
+        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",30,10));
         listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",25,5));
         listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",2,2));
         listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",0,4));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",2,2));
+        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",12,2));
 
 
         adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
         recyclerView.setAdapter(adapter);
         Collections.sort(listaDummyUsuarios, new comparadorPuntos());
+
 
         return view;
     }
@@ -130,5 +132,11 @@ public class UserEntityRankingFragment extends Fragment {
 class comparadorPuntos implements Comparator<UserEntity> {
     public int compare(UserEntity a, UserEntity b) {
         return (String.valueOf(b.getTotalPoints())).compareTo(String.valueOf(a.getTotalPoints()));
+    }
+}
+
+class comparadorEfectividad implements Comparator<UserEntity> {
+    public int compare(UserEntity a, UserEntity b) {
+        return (String.valueOf(b.getAverageScore())).compareTo(String.valueOf(a.getAverageScore()));
     }
 }
