@@ -4,6 +4,7 @@
 
     <item android:title="@string/navigation_logout" />
     <item
+        android:id="@+id/buttonGoQuizz"
         android:icon="@android:drawable/btn_star_big_on"
         android:title="@string/navigation_doQuiz"
         app:showAsAction="ifRoom" />

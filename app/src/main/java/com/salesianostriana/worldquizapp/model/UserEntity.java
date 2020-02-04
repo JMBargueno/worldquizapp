@@ -9,7 +9,7 @@ public class UserEntity {
     private int totalPoints, attemps;
 
 
-    public double getAverageScore(){
+    private double getAverageScore(){
         return totalPoints/attemps;
     }
 

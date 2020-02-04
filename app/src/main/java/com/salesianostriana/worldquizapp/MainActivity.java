@@ -1,5 +1,6 @@
 package com.salesianostriana.worldquizapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -90,6 +91,14 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.buttonGoQuizz:
+                    Intent i = new Intent(MainActivity.this, QuizzActivity.class);
+                    startActivity(i);
+                break;
+
+        }
         return super.onOptionsItemSelected(item);
     }
 }
