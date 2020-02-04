@@ -3,12 +3,13 @@ package com.salesianostriana.worldquizapp;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-<<<<<<< HEAD
+
 import com.google.firebase.auth.FirebaseAuth;
+import com.salesianostriana.worldquizapp.repository.CountryService;
 import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
-=======
+
 import com.salesianostriana.worldquizapp.model.Country;
->>>>>>> master
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -17,7 +18,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.List;
+
+import retrofit2.Call;
+
 public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener {
+
+    private Country item;
+    private CountryService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        service = ServiceGenerator.createService()
+        service = ServiceGenerator.createService(CountryService.class);
+        Call<List<Country>> call = service.getAllCountries();
+
 
 
     }
