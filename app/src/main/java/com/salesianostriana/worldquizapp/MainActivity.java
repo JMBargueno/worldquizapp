@@ -3,6 +3,7 @@ package com.salesianostriana.worldquizapp;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.salesianostriana.worldquizapp.model.UserEntity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,7 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IRankingListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,4 +28,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    @Override
+    public void onclickRanking(UserEntity u) {
+
+    }
 }

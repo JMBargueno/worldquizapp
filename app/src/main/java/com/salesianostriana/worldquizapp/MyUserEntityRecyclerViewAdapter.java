@@ -1,4 +1,4 @@
-package com.salesianostriana.worldquizapp.service;
+package com.salesianostriana.worldquizapp;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.salesianostriana.worldquizapp.R;
+import com.bumptech.glide.request.RequestOptions;
 import com.salesianostriana.worldquizapp.model.UserEntity;
 
 import java.util.List;
@@ -24,12 +24,12 @@ public class MyUserEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyUser
 
     private final List<UserEntity> mValues;
     private final IRankingListener mListener;
-    Context context;
+    private Context context;
 
     public MyUserEntityRecyclerViewAdapter(List<UserEntity> items, IRankingListener listener,Context context) {
-        mValues = items;
-        mListener = listener;
-        context = context;
+        this.mValues = items;
+        this.mListener = listener;
+        this.context = context;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class MyUserEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyUser
         holder.puntos.setText(String.valueOf(holder.mItem.getTotalPoints()));
         holder.efectividad.setText(String.valueOf(holder.mItem.getAverageScore()));
 
-        Glide .with(context).load(holder.mItem.getUrlFoto()).into(holder.fotoPerfil);
+        Glide.with(context).load(holder.mItem.getUrlFoto()).apply(RequestOptions.centerCropTransform()).into(holder.fotoPerfil);
 
 
         holder.mView.setOnClickListener(new View.OnClickListener() {

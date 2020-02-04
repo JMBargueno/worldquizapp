@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.salesianostriana.worldquizapp.ui.notifications.NotificationsFragment"
+        android:name="com.salesianostriana.worldquizapp.UserEntityRankingFragment"
         android:label="@string/title_ranking"
         tools:layout="@layout/fragment_userentity_list" />
 

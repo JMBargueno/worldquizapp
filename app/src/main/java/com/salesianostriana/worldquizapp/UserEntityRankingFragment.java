@@ -1,4 +1,4 @@
-package com.salesianostriana.worldquizapp.service;
+package com.salesianostriana.worldquizapp;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,10 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.salesianostriana.worldquizapp.R;
 import com.salesianostriana.worldquizapp.model.UserEntity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -81,13 +82,16 @@ public class UserEntityRankingFragment extends Fragment {
         }
 
         listaDummyUsuarios = new ArrayList<>();
+        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",20,10));
+        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",25,5));
         listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",2,2));
+        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",0,4));
         listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",2,2));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",2,2));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",2,2));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",2,2));
+
+
         adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
         recyclerView.setAdapter(adapter);
+        Collections.sort(listaDummyUsuarios, new comparadorPuntos());
 
         return view;
     }
@@ -121,4 +125,10 @@ public class UserEntityRankingFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
 
+}
+
+class comparadorPuntos implements Comparator<UserEntity> {
+    public int compare(UserEntity a, UserEntity b) {
+        return (String.valueOf(b.getTotalPoints())).compareTo(String.valueOf(a.getTotalPoints()));
+    }
 }

@@ -1,4 +1,4 @@
-package com.salesianostriana.worldquizapp.service;
+package com.salesianostriana.worldquizapp;
 
 import com.salesianostriana.worldquizapp.model.UserEntity;
 
