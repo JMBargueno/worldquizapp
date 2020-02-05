@@ -20,7 +20,7 @@ public class QuizGenerator {
     }
 
     //Numero de preguntas
-    static int QUESTION_NUMBER = 4;
+    static int QUESTION_NUMBER = 5;
     //Numero de paises en la lista
     static int COUNTRY_LIST_NUMBER = 9;
 

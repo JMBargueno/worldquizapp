@@ -20,6 +20,7 @@ import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 import com.salesianostriana.worldquizapp.service.QuizGenerator;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -52,7 +53,12 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         nextOption.setOnClickListener(this);
         backOption.setOnClickListener(this);
 
+        optionOne.setOnClickListener(this);
+        optionTwo.setOnClickListener(this);
+        optionThree.setOnClickListener(this);
+
         backOption.setVisibility(View.INVISIBLE);
+        nextOption.setVisibility(View.INVISIBLE);
 
 
 
@@ -76,6 +82,22 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                     backOption.setVisibility(View.INVISIBLE);
                 }
                 listPosition--;
+                paintView(listPosition);
+                break;
+
+            case R.id.buttonResponse1:
+
+                listPosition++;
+                paintView(listPosition);
+                break;
+            case R.id.buttonResponse2:
+
+                listPosition++;
+                paintView(listPosition);
+                break;
+            case R.id.buttonResponse3:
+
+                listPosition++;
                 paintView(listPosition);
                 break;
 
@@ -120,19 +142,35 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     private void paintView(int listPosition){
 
         progressBar.setProgress(listPosition);
-
         questionTitle.setText(quiz.getQuestionList().get(listPosition).getTitle());
+
+        List<Button> buttonList = new ArrayList<>();
+        buttonList.add(optionOne);
+        buttonList.add(optionTwo);
+        buttonList.add(optionThree);
+        int randomButton;
+
+
         for (int i = 0; i < 3; i++){
-            int randomResponse = ThreadLocalRandom.current().nextInt(0, 2-(i-1));
+            Button button = null;
+
             switch (i){
                 case 0:
-                    optionOne.setText(quiz.getQuestionList().get(randomResponse).getTrueResponse().getTitle());
+                    randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size()-1);
+                    button = buttonList.get(randomButton);
+                    button.setText(quiz.getQuestionList().get(listPosition).getTrueResponse().getTitle());
+                    buttonList.remove(button);
                     break;
                 case 1:
-                    optionTwo.setText(quiz.getQuestionList().get(randomResponse).getTrueResponse().getTitle());
+                    randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size()-1);
+                    button = buttonList.get(randomButton);
+                    button.setText(quiz.getQuestionList().get(listPosition).getFailResponse().getTitle());
+                    buttonList.remove(button);
                     break;
                 case 2:
-                    optionThree.setText(quiz.getQuestionList().get(randomResponse).getTrueResponse().getTitle());
+                    button = buttonList.get(0);
+                    button.setText(quiz.getQuestionList().get(listPosition).getFailResponse2().getTitle());
+                    buttonList.remove(button);
                     break;
             }
 
