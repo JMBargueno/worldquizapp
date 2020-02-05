@@ -15,6 +15,41 @@
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
+          "client_id": "555885105514-cvmeomjedqosudvv3tmbehv4rb3fv300.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salesianostriana.worldquizapp",
+            "certificate_hash": "0ead099190dc4419287c45c7951d3c8d38e996ae"
+          }
+        },
+        {
+          "client_id": "555885105514-5v65c97p3580b6kk49q80gp475b85mcm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salesianostriana.worldquizapp",
+            "certificate_hash": "df575041e0dc36eeacf511a60f6634fae90cc817"
+          }
+        },
+        {
+=======
+>>>>>>> master
+          "client_id": "555885105514-n2lslg8casu1o17mlhdfgioqf1lja5tb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salesianostriana.worldquizapp",
+            "certificate_hash": "767232ec0b530e5051db46c2265dd0ea92fee03a"
+          }
+        },
+        {
+          "client_id": "555885105514-ha5btrfk6gsi0sbq71lhmobq6knkn7ns.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salesianostriana.worldquizapp",
+            "certificate_hash": "2ca20bc1256f39fffb5275316a42f68c35371484"
+          }
+        },
+        {
           "client_id": "555885105514-3r6h2rr4sefapgjpikcj2fbfjrgfq922.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

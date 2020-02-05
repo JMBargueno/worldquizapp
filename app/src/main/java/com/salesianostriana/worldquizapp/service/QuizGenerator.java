@@ -19,13 +19,24 @@ public class QuizGenerator {
         this.countryList = countryList;
     }
 
+    //Numero de preguntas
+    static int QUESTION_NUMBER = 5;
+    //Numero de paises en la lista
+    static int COUNTRY_LIST_NUMBER = 9;
+
     //Genera un quizz de 5 preguntas
     public Quiz generateQuizz() {
         Quiz quiz = new Quiz();
         List<Question> questionList = new ArrayList<>();
+        List<Country> countryList = generateSelectedCountryList();
 
-        for (int i = 0; i < 4; i++) {
-            Question question = generateQuestion(i);
+        for (int i = 0; i < QUESTION_NUMBER; i++) {
+
+            //Genera preguntas con paises aleatorios
+            //Question question = generateQuestionWithRandmonCountries(i);
+
+            //Genera preguntas con una lista dada
+            Question question = generateQuestion(i, countryList);
             questionList.add(question);
         }
 
@@ -35,8 +46,8 @@ public class QuizGenerator {
         return quiz;
     }
 
-    //Genera una pregunta aleatoria entre 10 paises
-    private Question generateQuestion(int numType) {
+    //Genera una pregunta aleatoria entre 10 paises aleatorios
+    private Question generateQuestionWithRandmonCountries(int numType) {
         //Pregunta aleatoria
         //int randomNum = ThreadLocalRandom.current().nextInt(0, 6);
 
@@ -46,11 +57,22 @@ public class QuizGenerator {
         return question;
     }
 
+    //Genera una pregunta aleatorio entre 10 paises ofrecidos
+    private Question generateQuestion(int numType, List<Country> countryList) {
+        //Pregunta aleatoria
+        //int randomNum = ThreadLocalRandom.current().nextInt(0, 6);
+
+        Question question = new Question(countryList, numType);
+
+
+        return question;
+    }
+
 
     //Genera 10 paises aleatorios
     private List<Country> generateSelectedCountryList() {
         List<Country> selectCountries = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < COUNTRY_LIST_NUMBER; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(0, countryList.size());
             Country country;
             country = countryList.get(randomNum);

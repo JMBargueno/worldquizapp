@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
 
 
     private Country item;
+    private FirebaseAuth mAuth;
     // private CountryService service;
 
     @Override
@@ -101,9 +102,16 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
+            //Iniciar quizz
             case R.id.buttonGoQuizz:
                 Intent i = new Intent(MainActivity.this, QuizzActivity.class);
                 startActivity(i);
+                break;
+
+            case R.id.menu_logout:
+                mAuth.signOut();
+                Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(login);
                 break;
 
         }

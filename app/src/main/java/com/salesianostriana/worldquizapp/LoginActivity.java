@@ -44,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
-    private Button btnSignOut;
     private int RC_SIGN_IN = 1;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -53,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         signInButton = findViewById(R.id.sign_in_button);
-        btnSignOut = findViewById(R.id.sign_out_button);
         mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -67,15 +65,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 signIn();
-            }
-        });
-
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mGoogleSignInClient.signOut();
-                Toast.makeText(LoginActivity.this, "Ahora está desconectado",Toast.LENGTH_SHORT).show();
-                btnSignOut.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -128,7 +117,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUI(final FirebaseUser fUser){
-        btnSignOut.setVisibility(View.VISIBLE);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if(account != null){
             String name = account.getDisplayName();

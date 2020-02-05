@@ -74,7 +74,7 @@ public class Question {
     //Simbolo de la moneda
     private void typeThree(){
         //Seteamos titulo de la pregunta
-        this.setTitle("¿Cuál es el símbolo de " + selectedCountryList.get(0).getName() + "?");
+        this.setTitle("¿Cuál es el símbolo de la moneda de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
         this.setTrueResponse( new Response(selectedCountryList.get(0).getCurrencies().get(0).getSymbol(), true));
         //Seteamos respuestas incorrectas
