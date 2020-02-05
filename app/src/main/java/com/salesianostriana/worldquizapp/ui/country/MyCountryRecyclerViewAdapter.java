@@ -3,6 +3,7 @@ package com.salesianostriana.worldquizapp.ui.country;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.salesianostriana.worldquizapp.R;
+import com.salesianostriana.worldquizapp.countryDetails.DetailsActivity;
+import com.salesianostriana.worldquizapp.countryDetails.ResultFragment;
 import com.salesianostriana.worldquizapp.ui.country.CountryFragment.OnListFragmentInteractionListener;
 import com.salesianostriana.worldquizapp.model.Country;
 
@@ -82,8 +85,10 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
+                    Intent intent = new Intent(ctx, DetailsActivity.class);
+                    intent.putExtra("nameCountry", holder.mItem.getName());
+                    intent.putExtra("peopleCountry", holder.mItem.getPopulation());
+                    ctx.startActivity(intent);
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }
