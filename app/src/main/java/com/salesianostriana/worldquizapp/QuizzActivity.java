@@ -225,4 +225,6 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    
+
 }
