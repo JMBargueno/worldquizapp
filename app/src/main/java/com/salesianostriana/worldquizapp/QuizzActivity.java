@@ -1,10 +1,12 @@
 package com.salesianostriana.worldquizapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Response;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +38,22 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     Button nextOption;
     ProgressBar progressBar;
     int listPosition = 0;
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("Si, quiero salir", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("No", null);
+        builder.setMessage("¿Está seguro que desea salir?¡Su progreso será borrado!");
+        builder.setTitle(R.string.app_name);
+        builder.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
