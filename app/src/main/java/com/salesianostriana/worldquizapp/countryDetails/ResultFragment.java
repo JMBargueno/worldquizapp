@@ -20,7 +20,6 @@ import com.salesianostriana.worldquizapp.model.unsplash.Result;
 import com.salesianostriana.worldquizapp.repository.UnsplashService;
 import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 import com.salesianostriana.worldquizapp.repository.retrofit.UnsplashGenerator;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -130,7 +129,6 @@ public class ResultFragment extends Fragment {
         @Override
         protected Image doInBackground(Image... images) {
 
-            Log.d("NombreCiudad", getActivity().getIntent().getExtras().get("nameCountry").toString());
             Call<Image> call = service.getImagesUnsplash(getActivity().getIntent().getExtras().get("nameCountry").toString(), "1");
             Response<Image> response = null;
 

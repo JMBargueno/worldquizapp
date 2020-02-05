@@ -14,6 +14,8 @@ import com.salesianostriana.worldquizapp.R;
 import com.salesianostriana.worldquizapp.countryDetails.ResultFragment.OnListFragmentInteractionListener;
 
 import com.salesianostriana.worldquizapp.model.unsplash.Result;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import java.util.List;
 
@@ -42,11 +44,8 @@ public class MyResultRecyclerViewAdapter extends RecyclerView.Adapter<MyResultRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        Glide
-                .with(ctx)
-                .load(holder.mItem.getUrls().getRegular())
-                .into(holder.imageViewResult);
-
+        holder.sliderView.setIndicatorAnimation(IndicatorAnimations.FILL);
+        holder.sliderView.setScrollTimeInSec(1);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +66,7 @@ public class MyResultRecyclerViewAdapter extends RecyclerView.Adapter<MyResultRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final ImageView imageViewResult;
+        public final SliderView sliderView;
 
         public Result mItem;
 
@@ -75,7 +74,7 @@ public class MyResultRecyclerViewAdapter extends RecyclerView.Adapter<MyResultRe
             super(view);
             mView = view;
 
-            imageViewResult = view.findViewById(R.id.imageViewResult);
+            sliderView = view.findViewById(R.id.imageSlider);
 
         }
 
