@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.salesianostriana.worldquizapp.R;
 import com.salesianostriana.worldquizapp.countryDetails.DetailsActivity;
-import com.salesianostriana.worldquizapp.countryDetails.ResultFragment;
 import com.salesianostriana.worldquizapp.ui.country.CountryFragment.OnListFragmentInteractionListener;
 import com.salesianostriana.worldquizapp.model.Country;
 
 import java.util.List;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountryRecyclerViewAdapter.ViewHolder> {
 

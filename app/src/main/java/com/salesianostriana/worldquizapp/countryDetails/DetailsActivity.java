@@ -2,13 +2,12 @@ package com.salesianostriana.worldquizapp.countryDetails;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.salesianostriana.worldquizapp.R;
 import com.salesianostriana.worldquizapp.model.unsplash.Image;
 import com.salesianostriana.worldquizapp.model.unsplash.Result;
@@ -16,7 +15,7 @@ import com.salesianostriana.worldquizapp.repository.UnsplashService;
 import com.salesianostriana.worldquizapp.repository.retrofit.UnsplashGenerator;
 
 import java.io.IOException;
-import java.util.List;
+
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -72,9 +71,15 @@ public class DetailsActivity extends AppCompatActivity /*implements ResultFragme
         }
 
         @Override
+        protected void onPreExecute() {
+            Toast.makeText(ctx, "Loading data", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
         protected void onPostExecute(Image image) {
 
             flipperLayout = findViewById(R.id.flipper);
+
 
             for (int i = 0; i < image.getResults().size(); i++) {
                 FlipperView view = new FlipperView(ctx);
