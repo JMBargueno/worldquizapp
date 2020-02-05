@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()) {
+            //Iniciar quizz
             case R.id.buttonGoQuizz:
                 Intent i = new Intent(MainActivity.this, QuizzActivity.class);
                 startActivity(i);
