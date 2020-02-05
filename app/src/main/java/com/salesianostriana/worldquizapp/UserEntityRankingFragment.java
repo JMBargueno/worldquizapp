@@ -19,6 +19,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.salesianostriana.worldquizapp.model.UserEntity;
 
 import java.util.ArrayList;
@@ -27,6 +32,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import lombok.val;
+import lombok.var;
 
 
 /**
@@ -47,7 +54,7 @@ public class UserEntityRankingFragment extends Fragment {
     List<UserEntity> listaDummyUsuarios;
     MyUserEntityRecyclerViewAdapter adapter;
     private boolean ordenAsc=false;
-
+    FirebaseFirestore myDB = FirebaseFirestore.getInstance();
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -98,6 +105,12 @@ public class UserEntityRankingFragment extends Fragment {
         listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",0,4));
         listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",12,2));
 
+        myDB.collection().get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+            }
+        });
 
         Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
 
