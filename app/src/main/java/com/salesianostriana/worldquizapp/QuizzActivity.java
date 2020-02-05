@@ -90,6 +90,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.buttonNext:
+
                 backOption.setVisibility(View.VISIBLE);
                 listPosition++;
                 paintView(listPosition);
