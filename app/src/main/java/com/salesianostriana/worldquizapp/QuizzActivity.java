@@ -159,7 +159,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
     private void paintView(int listPosition){
 
-        progressBar.setProgress(listPosition);
+        progressBar.setProgress(listPosition+1);
         questionTitle.setText(quiz.getQuestionList().get(listPosition).getTitle());
 
         List<Button> buttonList = new ArrayList<>();
