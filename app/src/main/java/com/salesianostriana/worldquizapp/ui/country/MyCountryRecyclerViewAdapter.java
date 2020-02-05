@@ -87,6 +87,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
                 if (null != mListener) {
                     Intent intent = new Intent(ctx, DetailsActivity.class);
                     intent.putExtra("nameCountry", holder.mItem.getName());
+                    intent.putExtra("peopleCountry", holder.mItem.getPopulation());
                     ctx.startActivity(intent);
                     mListener.onListFragmentInteraction(holder.mItem);
                 }

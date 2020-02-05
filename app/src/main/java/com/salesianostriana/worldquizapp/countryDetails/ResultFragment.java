@@ -125,10 +125,10 @@ public class ResultFragment extends Fragment {
         void onListFragmentInteraction(Result item);
     }
 
-    public class ImageUnsplashAsyncTask extends AsyncTask<List<Result>, Void, List<Result>>{
+    public class ImageUnsplashAsyncTask extends AsyncTask<Image, Void, Image>{
 
         @Override
-        protected List<Result> doInBackground(List<Result>... lists) {
+        protected Image doInBackground(Image... images) {
 
             Log.d("NombreCiudad", getActivity().getIntent().getExtras().get("nameCountry").toString());
             Call<Image> call = service.getImagesUnsplash(getActivity().getIntent().getExtras().get("nameCountry").toString(), "1");
@@ -138,7 +138,7 @@ public class ResultFragment extends Fragment {
                 response = call.execute();
 
                 if(response.isSuccessful()){
-                    return response.body().getResults();
+                    return response.body();
                 }
 
             } catch(IOException e){
@@ -149,10 +149,9 @@ public class ResultFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<Result> results) {
+        protected void onPostExecute(Image image) {
 
-            recyclerView.setAdapter(new MyResultRecyclerViewAdapter(results, mListener));
-
+            recyclerView.setAdapter(new MyResultRecyclerViewAdapter(image.getResults(), mListener));
         }
     }
 }
