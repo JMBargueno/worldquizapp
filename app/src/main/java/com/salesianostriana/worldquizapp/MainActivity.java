@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
 
     private Country item;
     private FirebaseAuth mAuth;
-    // private CountryService service;
+    /*private CountryService service;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,27 +61,25 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
         NavigationUI.setupWithNavController(navView, navController);
 
         //Al cargar el app se cargan todos los paises en un repositorio
-        // service = ServiceGenerator.createService(CountryService.class);
-        //Call<List<Country>> call = service.getAllCountries();
-        // call.enqueue(new Callback<List<Country>>() {
-        //     @Override
-        //     public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
-        //         if (response.isSuccessful()) {
-        //              CountryRepository countryRepository = CountryRepository.getInstance();
-        //               countryRepository.setListCountry(response.body());
+       /* service = ServiceGenerator.createService(CountryService.class);
+        Call<List<Country>> call = service.getAllCountries();
+        call.enqueue(new Callback<List<Country>>() {
+            @Override
+            public void onResponse(Call<List<Country>> call, Response<List<Country>> response) {
+                if (response.isSuccessful()) {
+                    CountryRepository countryRepository = CountryRepository.getInstance();
+                    countryRepository.setListCountry(response.body());
+                } else {
+                    Toast.makeText(MainActivity.this, "Error al realizar la petición", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-
-        //          } else {
-        //               Toast.makeText(MainActivity.this, "Error al realizar la petición", Toast.LENGTH_SHORT).show();
-        //          }
-        //      }
-
-        //      @Override
-        //     public void onFailure(Call<List<Country>> call, Throwable t) {
-        //        Log.e("Network Failure", t.getMessage());
-        //      Toast.makeText(MainActivity.this, "Error al realizar la petición", Toast.LENGTH_SHORT).show();
-        //   }
-        // });
+            @Override
+            public void onFailure(Call<List<Country>> call, Throwable t) {
+                Log.e("Network Failure", t.getMessage());
+                Toast.makeText(MainActivity.this, "Error al realizar la petición", Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
 
     }
