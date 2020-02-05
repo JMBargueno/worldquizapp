@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -79,8 +80,6 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         nextOption.setVisibility(View.INVISIBLE);
 
 
-
-
         service = ServiceGenerator.createService(CountryService.class);
         new CountriesAsyncTask().execute();
 
@@ -88,7 +87,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.buttonNext:
 
                 backOption.setVisibility(View.VISIBLE);
@@ -97,7 +96,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.buttonBack:
-                if (listPosition == 1){
+                if (listPosition == 1) {
                     backOption.setVisibility(View.INVISIBLE);
                 }
                 listPosition--;
@@ -105,23 +104,32 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.buttonResponse1:
+                if ((boolean) optionOne.getTag() == true) {
+                    quizzPoints += 1;
+                }
 
                 listPosition++;
                 paintView(listPosition);
                 break;
             case R.id.buttonResponse2:
+                if ((boolean) optionTwo.getTag() == true) {
+                    quizzPoints += 1;
+                }
 
                 listPosition++;
                 paintView(listPosition);
                 break;
             case R.id.buttonResponse3:
+                if ((boolean) optionThree.getTag() == true) {
+                    quizzPoints += 1;
+                }
 
                 listPosition++;
                 paintView(listPosition);
                 break;
 
         }
-
+        Log.i("VALORQUIZZ", Integer.toString(quizzPoints));
     }
 
     public class CountriesAsyncTask extends AsyncTask<List<Country>, Void, List<Country>> {
@@ -158,42 +166,62 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void paintView(int listPosition){
-
-        progressBar.setProgress(listPosition+1);
-        questionTitle.setText(quiz.getQuestionList().get(listPosition).getTitle());
-
-        List<Button> buttonList = new ArrayList<>();
-        buttonList.add(optionOne);
-        buttonList.add(optionTwo);
-        buttonList.add(optionThree);
-        int randomButton;
+    private void paintView(int listPosition) {
 
 
-        for (int i = 0; i < 3; i++){
-            Button button = null;
 
-            switch (i){
-                case 0:
-                    randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size()-1);
-                    button = buttonList.get(randomButton);
-                    button.setText(quiz.getQuestionList().get(listPosition).getTrueResponse().getTitle());
-                    buttonList.remove(button);
-                    break;
-                case 1:
-                    randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size()-1);
-                    button = buttonList.get(randomButton);
-                    button.setText(quiz.getQuestionList().get(listPosition).getFailResponse().getTitle());
-                    buttonList.remove(button);
-                    break;
-                case 2:
-                    button = buttonList.get(0);
-                    button.setText(quiz.getQuestionList().get(listPosition).getFailResponse2().getTitle());
-                    buttonList.remove(button);
-                    break;
+        if (listPosition == 5) {
+
+            AlertDialog.Builder builderFinish = new AlertDialog.Builder(this);
+            builderFinish.setPositiveButton("¡Vale!", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            builderFinish.setCancelable(false);
+            builderFinish.setMessage("Ha ganado " + Integer.toString(quizzPoints));
+            builderFinish.show();
+
+        } else {
+            progressBar.setProgress(listPosition + 1);
+            questionTitle.setText(quiz.getQuestionList().get(listPosition).getTitle());
+
+            List<Button> buttonList = new ArrayList<>();
+            buttonList.add(optionOne);
+            buttonList.add(optionTwo);
+            buttonList.add(optionThree);
+            int randomButton;
+
+            for (int i = 0; i < 3; i++) {
+                Button button = null;
+
+                switch (i) {
+                    case 0:
+                        randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size() - 1);
+                        button = buttonList.get(randomButton);
+                        button.setText(quiz.getQuestionList().get(listPosition).getTrueResponse().getTitle());
+                        button.setTag(quiz.getQuestionList().get(listPosition).getTrueResponse().getBooleanValue());
+                        buttonList.remove(button);
+                        break;
+                    case 1:
+                        randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size() - 1);
+                        button = buttonList.get(randomButton);
+                        button.setText(quiz.getQuestionList().get(listPosition).getFailResponse().getTitle());
+                        button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse().getBooleanValue());
+                        buttonList.remove(button);
+                        break;
+                    case 2:
+                        button = buttonList.get(0);
+                        button.setText(quiz.getQuestionList().get(listPosition).getFailResponse2().getTitle());
+                        button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse2().getBooleanValue());
+                        buttonList.remove(button);
+                        break;
+                }
             }
 
         }
+        Log.i("LISTPOSITION", Integer.toString(listPosition));
 
     }
 
