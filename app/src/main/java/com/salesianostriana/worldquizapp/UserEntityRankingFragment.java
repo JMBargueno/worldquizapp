@@ -25,6 +25,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.salesianostriana.worldquizapp.model.UserEntity;
+import com.salesianostriana.worldquizapp.model.unsplash.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,6 +53,7 @@ public class UserEntityRankingFragment extends Fragment {
     Context context;
     RecyclerView recyclerView;
     List<UserEntity> listaDummyUsuarios;
+    QuerySnapshot listaDummyReal;
     MyUserEntityRecyclerViewAdapter adapter;
     private boolean ordenAsc=false;
     FirebaseFirestore myDB = FirebaseFirestore.getInstance();
@@ -105,17 +107,30 @@ public class UserEntityRankingFragment extends Fragment {
         listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",0,4));
         listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",12,2));
 
-        myDB.collection().get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        myDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if (task.isSuccessful()) {
+                    // Task completed successfully
+                    listaDummyReal = task.getResult();
+                    adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    // Task failed with an exception
+                    Exception exception = task.getException();
+                }
+
 
             }
         });
 
+
+
         Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
 
-        adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
-        recyclerView.setAdapter(adapter);
+
 
 
         return view;
