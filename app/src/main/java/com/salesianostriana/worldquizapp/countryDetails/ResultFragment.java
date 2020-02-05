@@ -37,6 +37,7 @@ public class ResultFragment extends Fragment {
     Context context;
     RecyclerView recyclerView;
     UnsplashService service;
+    DetailsActivity detailsActivity;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
