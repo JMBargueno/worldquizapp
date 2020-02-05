@@ -49,6 +49,17 @@ public class MyUserEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyUser
 
         Glide.with(context).load(holder.mItem.getUrlFoto()).apply(RequestOptions.centerCropTransform()).into(holder.fotoPerfil);
 
+        if(mValues.get(position).equals(mValues.get(0))){
+            Glide.with(context).load(R.drawable.ic_medal).into(holder.fotoMedalla);
+        }
+        else if(mValues.get(position).equals(mValues.get(1))){
+            Glide.with(context).load(R.drawable.ic_second).into(holder.fotoMedalla);
+        }
+        else if(mValues.get(position).equals(mValues.get(2))){
+            Glide.with(context).load(R.drawable.ic_third).into(holder.fotoMedalla);
+
+        }
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +84,7 @@ public class MyUserEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyUser
         public final TextView puntos;
         public final TextView efectividad;
         public final ImageView fotoPerfil;
+        public final ImageView fotoMedalla;
 
         public UserEntity mItem;
 
@@ -84,6 +96,7 @@ public class MyUserEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyUser
             puntos = view.findViewById(R.id.puntos);
             efectividad = view.findViewById(R.id.efectividad);
             fotoPerfil = view.findViewById(R.id.fotoUsuario);
+            fotoMedalla = view.findViewById(R.id.medalla);
 
 
         }
