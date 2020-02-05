@@ -14,10 +14,11 @@ import com.salesianostriana.worldquizapp.R;
 import com.salesianostriana.worldquizapp.countryDetails.ResultFragment.OnListFragmentInteractionListener;
 
 import com.salesianostriana.worldquizapp.model.unsplash.Result;
-import com.smarteist.autoimageslider.IndicatorAnimations;
-import com.smarteist.autoimageslider.SliderView;
 
 import java.util.List;
+
+import technolifestyle.com.imageslider.FlipperLayout;
+import technolifestyle.com.imageslider.FlipperView;
 
 public class MyResultRecyclerViewAdapter extends RecyclerView.Adapter<MyResultRecyclerViewAdapter.ViewHolder> {
 
@@ -44,8 +45,9 @@ public class MyResultRecyclerViewAdapter extends RecyclerView.Adapter<MyResultRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        holder.sliderView.setIndicatorAnimation(IndicatorAnimations.FILL);
-        holder.sliderView.setScrollTimeInSec(1);
+            FlipperView view = new FlipperView(ctx);
+            view.setImageUrl(holder.mItem.getUrls().getRegular());
+            holder.flipperLayout.addFlipperView(view);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +68,7 @@ public class MyResultRecyclerViewAdapter extends RecyclerView.Adapter<MyResultRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final SliderView sliderView;
+        public final FlipperLayout flipperLayout;
 
         public Result mItem;
 
@@ -74,7 +76,7 @@ public class MyResultRecyclerViewAdapter extends RecyclerView.Adapter<MyResultRe
             super(view);
             mView = view;
 
-            sliderView = view.findViewById(R.id.imageSlider);
+            flipperLayout = view.findViewById(R.id.flipper2);
 
         }
 
