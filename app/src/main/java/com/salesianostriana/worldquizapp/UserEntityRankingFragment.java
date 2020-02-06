@@ -110,6 +110,7 @@ public class UserEntityRankingFragment extends Fragment {
                 if (task.isSuccessful()) {
                     // Task completed successfully
                     listaDummyUsuarios = task.getResult().toObjects(UserEntity.class);
+                    Collections.sort(listaDummyUsuarios, new comparadorPuntos());
                     adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
                     recyclerView.setAdapter(adapter);
                 } else {
@@ -123,7 +124,7 @@ public class UserEntityRankingFragment extends Fragment {
 
 
 
-       
+
 
 
 
