@@ -4,25 +4,33 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.salesianostriana.worldquizapp.MyUserEntityRecyclerViewAdapter;
 import com.salesianostriana.worldquizapp.R;
 import com.salesianostriana.worldquizapp.model.Country;
 import com.salesianostriana.worldquizapp.repository.CountryService;
 import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -37,6 +45,8 @@ public class CountryFragment extends Fragment {
     Context context;
     RecyclerView recyclerView;
     CountryService service;
+    boolean ordenAsc = false;
+    List<Country> filterCountries;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -124,6 +134,63 @@ public class CountryFragment extends Fragment {
         void onListFragmentInteraction(Country item);
     }
 
+    //[START] Toolbar opciones
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.upper_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.filtroCountry:
+
+                if(ordenAsc){
+                    item.setIcon(R.drawable.ic_filter);
+                    Toasty.normal(context, "Ordenado por moneda", Toasty.LENGTH_SHORT).show();
+                    Collections.sort(filterCountries, new ComparatorCurrency());
+                    recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
+                }else {
+                    item.setIcon(R.drawable.ic_filter_black);
+                    Toasty.info(context, "Ordenado por lenguaje", Toasty.LENGTH_SHORT).show();
+                    Collections.sort(filterCountries, new ComparatorLanguage());
+                    recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
+
+                }
+                ordenAsc = !ordenAsc;
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Comparators
+    public class ComparatorCurrency implements Comparator<Country>{
+
+        @Override
+        public int compare(Country o1, Country o2) {
+            return o2.getCurrencies().get(0).getCode().compareTo(o1.getCurrencies().get(0).getCode());
+        }
+    }
+
+    public class ComparatorLanguage implements Comparator<Country>{
+
+        @Override
+        public int compare(Country o1, Country o2) {
+            return o2.getLanguages().get(0).getName().compareTo(o1.getLanguages().get(0).getName());
+        }
+    }
+
     public class CountriesAsyncTask extends AsyncTask<List<Country>, Void, List<Country>>{
 
         @Override
@@ -154,6 +221,10 @@ public class CountryFragment extends Fragment {
 
             recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(countries, mListener));
             Toast.makeText(context, "Countries loaded", Toast.LENGTH_SHORT).show();
+
+            filterCountries = new ArrayList<>(countries) ;
+
         }
+
     }
 }
