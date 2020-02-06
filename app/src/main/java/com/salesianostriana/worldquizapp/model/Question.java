@@ -1,5 +1,7 @@
 package com.salesianostriana.worldquizapp.model;
 
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -16,6 +18,11 @@ public class Question {
     private List<Country> selectedCountryList;
     private int typeOfQuestion;
 
+    private List <String> nearCountries;
+
+    public void setNearCountries(List<String> nearCountries) {
+        this.nearCountries = nearCountries;
+    }
 //TODO Implementar el random de paises para que seleccione
 
     public Question(List<Country> selectedCountryList, int typeOfQuestion) {
@@ -87,13 +94,30 @@ public class Question {
 
     //Paises limitrofes
     private void typeFour(){
+
+        List<List<String>> listCountryToSelect = new ArrayList<>();
+
+        List<String> listBorderOne = selectedCountryList.get(0).getBorders();
+
+        List<String> listBorderTwo = selectedCountryList.get(1).getBorders();
+
+        List<String> listBorderThree = selectedCountryList.get(2).getBorders();
+
+
+        listCountryToSelect.add(listBorderOne);
+        listCountryToSelect.add(listBorderTwo);
+        listCountryToSelect.add(listBorderThree);
+
+
+
+
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es el pais limítrofe de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
         this.setTrueResponse( new Response("Prueba", true));
         //Seteamos respuestas incorrectas
-        this.setFailResponse(new Response("Prueba", true));
-        this.setFailResponse2(new Response("Prueba", true));
+        this.setFailResponse(new Response("Pruba", false));
+        this.setFailResponse2(new Response("Prueba", false));
 
 
 
@@ -125,6 +149,27 @@ public class Question {
 
 
     }
+    public class getOneBorderCountryAsyncTask extends AsyncTask<List<String>, Void, List<String>> {
+        List<String> countryListCode;
 
+        public getOneBorderCountryAsyncTask(List<String> countryListCode) {
+            this.countryListCode = countryListCode;
+        }
+
+        @Override
+        protected List<String> doInBackground(List<String>... lists) {
+            String selectedcodeCountry;
+            List<String> fullCountryNameList;
+            int randomNum = ThreadLocalRandom.current().nextInt(0, countryListCode.size()-1);
+            countryListCode.get(randomNum);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<String> nearCountriesList) {
+            setNearCountries(nearCountriesList);
+        }
+    }
 
 }
