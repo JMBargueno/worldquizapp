@@ -146,7 +146,7 @@ public class CountryFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.upper_menu, menu);
+        inflater.inflate(R.menu.country_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -156,12 +156,12 @@ public class CountryFragment extends Fragment {
             case R.id.filtroCountry:
 
                 if(ordenAsc){
-                    item.setIcon(R.drawable.ic_filter);
+                    item.setIcon(R.drawable.ic_filter_android);
                     Toasty.normal(context, "Ordenado por moneda", Toasty.LENGTH_SHORT).show();
                     Collections.sort(filterCountries, new ComparatorCurrency());
                     recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
                 }else {
-                    item.setIcon(R.drawable.ic_filter_black);
+                    item.setIcon(R.drawable.ic_filter_black_android);
                     Toasty.info(context, "Ordenado por lenguaje", Toasty.LENGTH_SHORT).show();
                     Collections.sort(filterCountries, new ComparatorLanguage());
                     recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
