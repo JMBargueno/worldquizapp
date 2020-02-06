@@ -18,7 +18,7 @@ public class Question {
     private List<Country> selectedCountryList;
     private int typeOfQuestion;
 
-    private List <String> nearCountries;
+    private List<String> nearCountries;
 
     public void setNearCountries(List<String> nearCountries) {
         this.nearCountries = nearCountries;
@@ -28,7 +28,7 @@ public class Question {
     public Question(List<Country> selectedCountryList, int typeOfQuestion) {
         this.selectedCountryList = selectedCountryList;
         this.typeOfQuestion = typeOfQuestion;
-        switch (typeOfQuestion){
+        switch (typeOfQuestion) {
             case 0:
                 typeOne();
                 break;
@@ -52,118 +52,121 @@ public class Question {
     }
 
 
-
     //Capital de pais
-    private void typeOne(){
+    private void typeOne() {
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es la capital de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
-        this.setTrueResponse( new Response(selectedCountryList.get(0).getCapital(), true));
+        this.setTrueResponse(new Response(selectedCountryList.get(0).getCapital(), true));
         //Seteamos respuestas incorrectas
         this.setFailResponse(new Response(selectedCountryList.get(1).getCapital(), false));
         this.setFailResponse2(new Response(selectedCountryList.get(2).getCapital(), false));
 
 
     }
+
     //Nombre de la moneda
-    private void typeTwo(){
+    private void typeTwo() {
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cómo se llama la moneda de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
-        this.setTrueResponse( new Response(selectedCountryList.get(0).getCurrencies().get(0).getName(), true));
+        this.setTrueResponse(new Response(selectedCountryList.get(0).getCurrencies().get(0).getName(), true));
         //Seteamos respuestas incorrectas
         this.setFailResponse(new Response(selectedCountryList.get(1).getCurrencies().get(0).getName(), false));
         this.setFailResponse2(new Response(selectedCountryList.get(2).getCurrencies().get(0).getName(), false));
 
 
-
     }
+
     //Simbolo de la moneda
-    private void typeThree(){
+    private void typeThree() {
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es el símbolo de la moneda de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
-        this.setTrueResponse( new Response(selectedCountryList.get(0).getCurrencies().get(0).getSymbol(), true));
+        this.setTrueResponse(new Response(selectedCountryList.get(0).getCurrencies().get(0).getSymbol(), true));
         //Seteamos respuestas incorrectas
         this.setFailResponse(new Response(selectedCountryList.get(1).getCurrencies().get(0).getSymbol(), false));
         this.setFailResponse2(new Response(selectedCountryList.get(2).getCurrencies().get(0).getSymbol(), false));
 
 
-
     }
 
     //Paises limitrofes
-    private void typeFour(){
+    private void typeFour() {
 
         List<List<String>> listCountryToSelect = new ArrayList<>();
 
-        List<String> listBorderOne = selectedCountryList.get(0).getBorders();
+        List<String> listBorderOne = selectedCountryList.get(0).getBorders().isEmpty() ? null : selectedCountryList.get(0).getBorders();
 
-        List<String> listBorderTwo = selectedCountryList.get(1).getBorders();
+        List<String> listBorderTwo = selectedCountryList.get(1).getBorders().isEmpty() ? null : selectedCountryList.get(1).getBorders();
 
-        List<String> listBorderThree = selectedCountryList.get(2).getBorders();
+        List<String> listBorderThree = selectedCountryList.get(2).getBorders().isEmpty() ? null : selectedCountryList.get(2).getBorders();
 
 
         listCountryToSelect.add(listBorderOne);
         listCountryToSelect.add(listBorderTwo);
         listCountryToSelect.add(listBorderThree);
 
-
+       // new getOneBorderCountryAsyncTask(listCountryToSelect).execute();
 
 
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es el pais limítrofe de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
-        this.setTrueResponse( new Response("Prueba", true));
+        this.setTrueResponse(new Response("", true));
         //Seteamos respuestas incorrectas
-        this.setFailResponse(new Response("Pruba", false));
-        this.setFailResponse2(new Response("Prueba", false));
-
-
-
-
+        this.setFailResponse(new Response("", false));
+        this.setFailResponse2(new Response("", false));
     }
+
     //Bandera pais
-    private void typeFive(){
+    private void typeFive() {
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es la bandera de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
-        this.setTrueResponse( new Response(selectedCountryList.get(0).getFlag(), true));
+        this.setTrueResponse(new Response(selectedCountryList.get(0).getFlag(), true));
         //Seteamos respuestas incorrectas
         this.setFailResponse(new Response(selectedCountryList.get(1).getFlag(), false));
         this.setFailResponse2(new Response(selectedCountryList.get(2).getFlag(), false));
 
-
-
     }
+
     //Idioma pais
-    private void typeSix(){
+    private void typeSix() {
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es el idioma de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
-        this.setTrueResponse( new Response(selectedCountryList.get(0).getLanguages().get(0).getName(), true));
+        this.setTrueResponse(new Response(selectedCountryList.get(0).getLanguages().get(0).getName(), true));
         //Seteamos respuestas incorrectas
         this.setFailResponse(new Response(selectedCountryList.get(1).getLanguages().get(0).getName(), false));
         this.setFailResponse2(new Response(selectedCountryList.get(2).getLanguages().get(0).getName(), false));
 
 
-
     }
-    public class getOneBorderCountryAsyncTask extends AsyncTask<List<String>, Void, List<String>> {
-        List<String> countryListCode;
 
-        public getOneBorderCountryAsyncTask(List<String> countryListCode) {
+    public class getOneBorderCountryAsyncTask extends AsyncTask<List<List<String>>, Void, List<String>> {
+        List<List<String>> countryListCode;
+
+        public getOneBorderCountryAsyncTask(List<List<String>> countryListCode) {
             this.countryListCode = countryListCode;
         }
 
         @Override
-        protected List<String> doInBackground(List<String>... lists) {
+        protected List<String> doInBackground(List<List<String>>... lists) {
             String selectedcodeCountry;
-            List<String> fullCountryNameList;
-            int randomNum = ThreadLocalRandom.current().nextInt(0, countryListCode.size()-1);
-            countryListCode.get(randomNum);
+            List<String> fullCountryNameList = new ArrayList<>();
 
-            return null;
+            for (List<String> selectedCountryLimitOfCountry : countryListCode) {
+                if (selectedCountryLimitOfCountry.isEmpty()) {
+                    selectedcodeCountry = null;
+                } else {
+                    int randomNum = ThreadLocalRandom.current().nextInt(0, countryListCode.size() - 1);
+                    selectedcodeCountry = selectedCountryLimitOfCountry.get(randomNum);
+                }
+                fullCountryNameList.add(selectedcodeCountry);
+            }
+
+            return fullCountryNameList;
         }
 
         @Override
