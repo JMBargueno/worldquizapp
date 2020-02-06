@@ -71,4 +71,7 @@ dependencies {
 
     //Toast Library
     implementation 'com.github.GrenderG:Toasty:1.4.2'
+
+    //Google Maps Dependency
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }

@@ -2,6 +2,7 @@
     <string name="app_name">WorldquizApp</string>
     <string name="title_countries">Countries</string>
     <string name="title_dashboard">Dashboard</string>
+    <string name="title_maps">Map</string>
 
     <string name="title_notifications">Notifications</string>
 
@@ -25,5 +26,6 @@
     <string name="title_ranking">Ranking</string>
     <string name="puntosPlain">Puntos: </string>
     <string name="efectividadPlain">Efectividad: </string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
