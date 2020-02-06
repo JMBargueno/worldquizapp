@@ -10,4 +10,9 @@
         android:icon="@android:drawable/btn_star_big_on"
         android:title="@string/navigation_doQuiz"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/filtroCountry"
+        android:icon="@drawable/ic_filter"
+        android:title="filtroCountry"
+        app:showAsAction="ifRoom" />
 </menu>
