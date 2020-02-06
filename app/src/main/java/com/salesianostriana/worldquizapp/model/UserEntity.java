@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class
 UserEntity {
 
-    private String name, surname, nickname, email,urlFoto;
+    private String name, surname, nickname, email,photoUrl;
     private int totalPoints, attemps;
 
 
