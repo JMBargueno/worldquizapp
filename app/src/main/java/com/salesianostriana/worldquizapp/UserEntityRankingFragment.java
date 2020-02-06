@@ -19,7 +19,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.salesianostriana.worldquizapp.model.UserEntity;
+import com.salesianostriana.worldquizapp.model.unsplash.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +33,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import lombok.val;
+import lombok.var;
 
 
 /**
@@ -45,9 +53,10 @@ public class UserEntityRankingFragment extends Fragment {
     Context context;
     RecyclerView recyclerView;
     List<UserEntity> listaDummyUsuarios;
+    QuerySnapshot listaDummyReal;
     MyUserEntityRecyclerViewAdapter adapter;
     private boolean ordenAsc=false;
-
+    FirebaseFirestore myDB = FirebaseFirestore.getInstance();
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -92,17 +101,32 @@ public class UserEntityRankingFragment extends Fragment {
         }
 
         listaDummyUsuarios = new ArrayList<>();
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",30,10));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",25,5));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",2,2));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",0,4));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",12,2));
 
 
-        Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
+        myDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
-        recyclerView.setAdapter(adapter);
+                if (task.isSuccessful()) {
+                    // Task completed successfully
+                    listaDummyUsuarios = task.getResult().toObjects(UserEntity.class);
+                    Collections.sort(listaDummyUsuarios, new comparadorPuntos());
+                    adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    // Task failed with an exception
+                    Exception exception = task.getException();
+                }
+
+
+            }
+        });
+
+
+
+
+
+
 
 
         return view;
