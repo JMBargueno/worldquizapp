@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSignInresult(Task<GoogleSignInAccount> completedTask){
         try{
             GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-            Toast.makeText(LoginActivity.this, "Registro completado con éxito",Toast.LENGTH_SHORT).show();
             FirebaseGoogleAuth(acc);
 
         }

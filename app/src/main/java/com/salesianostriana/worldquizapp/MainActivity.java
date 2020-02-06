@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.upper_menu, menu);
