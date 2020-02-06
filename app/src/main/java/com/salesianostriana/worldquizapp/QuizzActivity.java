@@ -2,6 +2,8 @@ package com.salesianostriana.worldquizapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import lombok.NonNull;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -16,6 +18,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.salesianostriana.worldquizapp.model.Country;
 import com.salesianostriana.worldquizapp.model.Quiz;
 import com.salesianostriana.worldquizapp.repository.CountryService;
@@ -39,6 +52,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     Button nextOption;
     ProgressBar progressBar;
     int listPosition = 0;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     public void onBackPressed() {
@@ -172,11 +188,32 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
         if (listPosition == 5) {
 
+            String loggedUser = firebaseUser.getEmail();
+            CollectionReference usersRef = db.collection("users");
+            Query query = usersRef.whereEqualTo("email", loggedUser);
+            query.get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.i("DOCUMENT", document.getId() + " => " + document.getData());
+                                }
+                            } else {
+                                Log.i("DOCUMENT", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+
+
             AlertDialog.Builder builderFinish = new AlertDialog.Builder(this);
             builderFinish.setPositiveButton("¡Vale!", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
+
+
+
                 }
             });
             builderFinish.setCancelable(false);
