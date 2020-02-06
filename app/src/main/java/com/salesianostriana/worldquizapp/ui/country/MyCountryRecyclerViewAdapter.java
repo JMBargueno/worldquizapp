@@ -1,5 +1,7 @@
 package com.salesianostriana.worldquizapp.ui.country;
 
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
@@ -7,6 +9,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +46,10 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
+
+        //holder.imageCountry.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.fade_transition_animation));
+
+        holder.cardView.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.fade_scale_animation));
 
         holder.txtName.setText(holder.mItem.getName());
         holder.txtCurrency.setText(holder.mItem.getCurrencies().get(0).getCode());
@@ -108,6 +115,8 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
         public final TextView txtCurrency;
         public final TextView txtCapital;
         public final TextView txtLanguage;
+        public final ConstraintLayout constraintLayout;
+        public final CardView cardView;
         public Country mItem;
 
         public ViewHolder(View view) {
@@ -121,6 +130,8 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
             txtCurrency = view.findViewById(R.id.textViewCurrency);
             txtCapital = view.findViewById(R.id.textViewCapital);
             txtLanguage = view.findViewById(R.id.textViewLanguage);
+            constraintLayout = view.findViewById(R.id.constraintAnimation);
+            cardView = view.findViewById(R.id.cardViewAnimation);
         }
 
     }
