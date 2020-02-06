@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "555885105514-71anp80fma955o3ta2f25cd6bv7kpi5v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salesianostriana.worldquizapp",
+            "certificate_hash": "2b8815840e205f36b98ebce2d9fa92e66331561f"
+          }
+        },
+        {
           "client_id": "555885105514-t6de3t9knn1pisu48gpaglo3ke70c3fv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
