@@ -1,10 +1,11 @@
-package com.salesianostriana.worldquizapp.maps;
-
-import androidx.fragment.app.FragmentActivity;
+package com.salesianostriana.worldquizapp.ui.dashboard;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,35 +15,38 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.salesianostriana.worldquizapp.R;
 import com.salesianostriana.worldquizapp.model.Country;
 import com.salesianostriana.worldquizapp.repository.CountryService;
-import com.salesianostriana.worldquizapp.ui.country.MyCountryRecyclerViewAdapter;
+import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     Context context;
     CountryService service;
-    List<Country> listCountries;
+    List<Country> listCountries = new ArrayList<>();
+
+    public MapFragment() {
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        new CountriesAsyncTask(this).execute();
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = super.onCreateView(inflater, container, savedInstanceState);
+        service = ServiceGenerator.createService(CountryService.class);
+        new CountriesAsyncTask().execute();
+        getMapAsync(this);
 
-
-
+        return v;
     }
 
     @Override
@@ -53,30 +57,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (Country country: listCountries) {
             Marker m = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(country.getLatlng().get(0),country.getLatlng().get(1)))
-                    .title("Capital")
-                    .snippet("Nº habitantes, idioma")
+                    .title(country.getName())
             );
             m.setTag(country.getAlpha3Code());
         }
 
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                String isoCode = marker.getTag().toString();
-                return false;
-            }
-        });
+//        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//            @Override
+//            public boolean onMarkerClick(Marker marker) {
+//                String isoCode = marker.getTag().toString();
+//                return false;
+//            }
+//        });
 
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-34, 151)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-34, 151)));
     }
 
     public class CountriesAsyncTask extends AsyncTask<List<Country>, Void, List<Country>> {
-
-        MapsActivity ctx;
-
-        public CountriesAsyncTask(MapsActivity ctx) {
-            this.ctx = ctx;
-        }
 
         @Override
         protected List<Country> doInBackground(List<Country>... lists) {
@@ -104,10 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         protected void onPostExecute(List<Country> countries) {
 
             listCountries = new ArrayList<>(countries);
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(ctx);
-            Toast.makeText(context, "Countries loaded", Toast.LENGTH_SHORT).show();
+
 
 
 
