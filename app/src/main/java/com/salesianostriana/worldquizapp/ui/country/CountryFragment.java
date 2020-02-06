@@ -156,14 +156,17 @@ public class CountryFragment extends Fragment {
             case R.id.filtroCountry:
 
                 if(ordenAsc){
-                    item.setIcon(R.drawable.ic_filter_android);
-                    Toasty.normal(context, "Ordenado por moneda", Toasty.LENGTH_SHORT).show();
-                    Collections.sort(filterCountries, new ComparatorCurrency());
-                    recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
-                }else {
                     item.setIcon(R.drawable.ic_filter_black_android);
-                    Toasty.info(context, "Ordenado por lenguaje", Toasty.LENGTH_SHORT).show();
+                    Toasty.info(context, "Ordenado por idioma", Toasty.LENGTH_SHORT).show();
                     Collections.sort(filterCountries, new ComparatorLanguage());
+                    recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
+
+                }else {
+
+                    item.setIcon(R.drawable.ic_filter_android);
+                    Toasty.info(context, "Ordenado por moneda", Toasty.LENGTH_SHORT).show();
+                    //Collections.sort(filterCountries);
+                    Collections.sort(filterCountries, new ComparatorCurrency());
                     recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
 
                 }
@@ -179,7 +182,7 @@ public class CountryFragment extends Fragment {
 
         @Override
         public int compare(Country o1, Country o2) {
-            return o2.getCurrencies().get(0).getCode().compareTo(o1.getCurrencies().get(0).getCode());
+            return (String.valueOf(o1.getCurrencies().get(0).getCode())).compareTo(String.valueOf(o2.getCurrencies().get(0).getCode()));
         }
     }
 
@@ -187,7 +190,7 @@ public class CountryFragment extends Fragment {
 
         @Override
         public int compare(Country o1, Country o2) {
-            return o2.getLanguages().get(0).getName().compareTo(o1.getLanguages().get(0).getName());
+            return o1.getLanguages().get(0).getName().compareTo(o2.getLanguages().get(0).getName());
         }
     }
 
