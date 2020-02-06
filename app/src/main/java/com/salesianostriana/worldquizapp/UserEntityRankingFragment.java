@@ -101,11 +101,6 @@ public class UserEntityRankingFragment extends Fragment {
         }
 
         listaDummyUsuarios = new ArrayList<>();
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",30,10));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",25,5));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",2,2));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",0,4));
-        listaDummyUsuarios.add(new UserEntity("Pablo","Rodriguez Roldan","sulfuro","pablo@gmail.com","https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg",12,2));
 
 
         myDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -114,7 +109,7 @@ public class UserEntityRankingFragment extends Fragment {
 
                 if (task.isSuccessful()) {
                     // Task completed successfully
-                    listaDummyReal = task.getResult();
+                    listaDummyUsuarios = task.getResult().toObjects(UserEntity.class);
                     adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
                     recyclerView.setAdapter(adapter);
                 } else {
@@ -128,7 +123,7 @@ public class UserEntityRankingFragment extends Fragment {
 
 
 
-        Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
+       
 
 
 

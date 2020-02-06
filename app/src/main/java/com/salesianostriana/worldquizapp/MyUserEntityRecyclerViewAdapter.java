@@ -10,10 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.salesianostriana.worldquizapp.model.UserEntity;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link UserEntity} and makes a call to the
@@ -47,7 +50,7 @@ public class MyUserEntityRecyclerViewAdapter extends RecyclerView.Adapter<MyUser
         holder.puntos.setText(String.valueOf(holder.mItem.getTotalPoints()));
         holder.efectividad.setText(String.valueOf(holder.mItem.getAverageScore()));
 
-        Glide.with(context).load(holder.mItem.getUrlFoto()).apply(RequestOptions.centerCropTransform()).into(holder.fotoPerfil);
+        Glide.with(context).load(holder.mItem.getPhotoUrl()).apply(RequestOptions.bitmapTransform(new CropCircleTransformation())).into(holder.fotoPerfil);
 
         if(mValues.get(position).equals(mValues.get(0))){
             Glide.with(context).load(R.drawable.ic_medal).into(holder.fotoMedalla);
