@@ -49,6 +49,9 @@ public class CountryFragment extends Fragment {
     boolean ordenAsc = false;
     List<Country> filterCountries;
     MenuItem itemFilter;
+    int countCurrency = 0;
+    int countLanguage = 0;
+
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -154,64 +157,47 @@ public class CountryFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()){
             case R.id.filtroCountry:
 
-                final MenuItem itemFiltro;
+                break;
 
-                itemFiltro = item;
+            case R.id.filterCurrency:
+                countCurrency++;
 
-                if(itemFiltro.hasSubMenu()){
-
-                    itemFiltro.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (itemFiltro.getItemId()){
-
-                                case R.id.filterCurrency:
-                                    Toast.makeText(context, "Currency", Toast.LENGTH_SHORT).show();
-                                    break;
-                                    
-                                case R.id.filterLanguage:
-                                    Toast.makeText(context, "Idioma", Toast.LENGTH_SHORT).show();
-                                    break;
-
-                            }
-                            return false;
-                        }
-                    });
-                    if(itemFiltro.getSubMenu().getItem().getItemId() == R.id.filterLanguage){
-                        /*item.setIcon(R.drawable.ic_filter_black_android);
-                        Toasty.info(context, "Ordenado por idioma", Toasty.LENGTH_SHORT).show();
-                        Collections.sort(filterCountries, new ComparatorLanguage());
-                        recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));*/
-                        Toast.makeText(context, "Filtro de Lenguaje", Toast.LENGTH_SHORT).show();
-                    }else if(item.getSubMenu().getItem().getItemId() == R.id.filterCurrency){
-                        /*item.setIcon(R.drawable.ic_filter_android);
-                        Toasty.info(context, "Ordenado por moneda", Toasty.LENGTH_SHORT).show();
-                        //Collections.sort(filterCountries);
-                        Collections.sort(filterCountries, new ComparatorCurrency());
-                        recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));*/
-                    }
-                }
-
-                /*if(ordenAsc){
-                        item.setIcon(R.drawable.ic_filter_black_android);
-                        Toasty.info(context, "Ordenado por idioma", Toasty.LENGTH_SHORT).show();
-                        Collections.sort(filterCountries, new ComparatorLanguage());
-                        recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
-
-                }else {
-
-                    item.setIcon(R.drawable.ic_filter_android);
+                if(countCurrency%2 != 0){
+                    item.setChecked(true);
                     Toasty.info(context, "Ordenado por moneda", Toasty.LENGTH_SHORT).show();
-                    //Collections.sort(filterCountries);
                     Collections.sort(filterCountries, new ComparatorCurrency());
                     recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
 
+                }else if(countCurrency%2 == 0){
+                    item.setChecked(false);
+                    new CountriesAsyncTask().execute();
                 }
-                ordenAsc = !ordenAsc;*/
+
+
                 break;
+
+            case R.id.filterLanguage:
+                countLanguage++;
+
+                if(countLanguage%2 != 0){
+                    item.setChecked(true);
+                    Toasty.info(context, "Ordenado por idioma", Toasty.LENGTH_SHORT).show();
+                    Collections.sort(filterCountries, new ComparatorLanguage());
+                    recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
+
+                }else if(countLanguage%2 == 0){
+                    item.setChecked(false);
+                    new CountriesAsyncTask().execute();
+                }
+
+
+
+                break;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -263,7 +249,6 @@ public class CountryFragment extends Fragment {
             Collections.sort(countries);
 
             recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(countries, mListener));
-            Toast.makeText(context, "Countries loaded", Toast.LENGTH_SHORT).show();
 
             filterCountries = new ArrayList<>(countries) ;
 

@@ -7,7 +7,7 @@
         android:title="@string/navigation_logout" />
     <item
         android:id="@+id/buttonGoQuizz"
-        android:icon="@android:drawable/btn_star_big_on"
+        android:icon="@drawable/ic_examquizz"
         android:title="@string/navigation_doQuiz"
         app:showAsAction="ifRoom" />
 </menu>

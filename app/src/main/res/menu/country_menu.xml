@@ -4,16 +4,19 @@
 
     <item
         android:id="@+id/filtroCountry"
-        android:icon="@drawable/ic_filter_android"
+        android:icon="@drawable/ic_filter_green"
         android:title="filtroCountry"
-        app:showAsAction="ifRoom" >
+        app:showAsAction="ifRoom">
 
         <menu>
             <item
                 android:id="@+id/filterLanguage"
+                android:checkable="true"
                 android:title="Idioma" />
             <item
                 android:id="@+id/filterCurrency"
+                android:checkable="true"
+                android:checked="false"
                 android:title="Moneda" />
         </menu>
 
