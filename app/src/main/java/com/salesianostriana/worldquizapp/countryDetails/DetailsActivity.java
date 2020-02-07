@@ -33,7 +33,7 @@ public class DetailsActivity extends AppCompatActivity /*implements ResultFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-
+        getSupportActionBar().setTitle(getIntent().getExtras().get("nameCountry").toString());
 
         service = UnsplashGenerator.createService(UnsplashService.class);
         new ImageUnsplashAsyncTask(this).execute();
