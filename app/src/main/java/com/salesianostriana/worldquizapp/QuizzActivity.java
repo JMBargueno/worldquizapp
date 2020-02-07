@@ -7,6 +7,7 @@ import lombok.NonNull;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -18,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,6 +45,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static android.graphics.BlendMode.COLOR;
 
 public class QuizzActivity extends AppCompatActivity implements View.OnClickListener {
     Context context;
@@ -109,7 +113,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.buttonNext:
+          /*  case R.id.buttonNext:
 
                 backOption.setVisibility(View.VISIBLE);
                 listPosition++;
@@ -122,19 +126,38 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }
                 listPosition--;
                 paintView(listPosition);
-                break;
+                break;*/
 
             case R.id.buttonResponse1:
                 if ((boolean) optionOne.getTag() == true) {
-                    quizzPoints += 1;
-                }
 
+                    //Animacion acertado
+                    quizzPoints += 1;
+                } else {
+                    //Animacion fail
+                }
+                checkResponse();
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 listPosition++;
                 paintView(listPosition);
                 break;
+
             case R.id.buttonResponse2:
                 if ((boolean) optionTwo.getTag() == true) {
+                    //Animacion acertado
                     quizzPoints += 1;
+                }else{
+                    //Animacion fai
+                }
+                checkResponse();
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
                 listPosition++;
@@ -142,9 +165,17 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.buttonResponse3:
                 if ((boolean) optionThree.getTag() == true) {
+                    //Animacion acertado
                     quizzPoints += 1;
+                } else {
+                    //Animacion fail
                 }
-
+                checkResponse();
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 listPosition++;
                 paintView(listPosition);
                 break;
@@ -188,6 +219,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void paintView(int listPosition) {
+        optionOne.setBackgroundColor(getResources().getColor(R.color.grayColor));
+        optionTwo.setBackgroundColor(getResources().getColor(R.color.grayColor));
+        optionThree.setBackgroundColor(getResources().getColor(R.color.grayColor));
 
 
         if (listPosition == 5) {
@@ -224,8 +258,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }
             });
             builderFinish.setCancelable(false);
-            builderFinish.setMessage("Ha ganado " + Integer.toString(quizzPoints));
+            builderFinish.setMessage("¡Ha ganado " + Integer.toString(quizzPoints) + " puntos!");
             builderFinish.show();
+
 
         } else {
             progressBar.setProgress(listPosition + 1);
@@ -269,5 +304,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+
+private void checkResponse(){
+
+}
 
 }

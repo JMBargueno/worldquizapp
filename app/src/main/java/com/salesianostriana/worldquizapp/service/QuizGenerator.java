@@ -47,7 +47,7 @@ public class QuizGenerator {
     }
 
     //Genera una pregunta aleatoria entre 10 paises aleatorios
-    private Question generateQuestionWithRandmonCountries(int numType) {
+   /* private Question generateQuestionWithRandmonCountries(int numType) {
         //Pregunta aleatoria
         //int randomNum = ThreadLocalRandom.current().nextInt(0, 6);
 
@@ -55,14 +55,14 @@ public class QuizGenerator {
 
 
         return question;
-    }
+    }*/
 
     //Genera una pregunta aleatorio entre 10 paises ofrecidos
     private Question generateQuestion(int numType, List<Country> countryList) {
         //Pregunta aleatoria
         //int randomNum = ThreadLocalRandom.current().nextInt(0, 6);
 
-        Question question = new Question(countryList, numType);
+        Question question = new Question(generateSelectedCountryList(), numType, countryList);
 
 
         return question;

@@ -5,8 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -33,6 +38,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,11 +50,24 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
     private Country item;
     private FirebaseAuth mAuth;
     /*private CountryService service;*/
+    Toolbar toolbar;
+    private ImageView imagenPerfilToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+
+        imagenPerfilToolbar = findViewById(R.id.imagenPerfil);
+
+        Glide.with(this).load(account.getPhotoUrl()).apply(RequestOptions.bitmapTransform(new CropCircleTransformation())).into(imagenPerfilToolbar);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Worldmap");
+
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
         // Passing each menu ID as a set of Ids because each
@@ -102,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
             //Iniciar quizz
             case R.id.buttonGoQuizz:
                 Intent i = new Intent(MainActivity.this, QuizzActivity.class);
-                startActivity(i);
+                startActivityForResult(i,10001);
                 break;
 
             case R.id.menu_logout:
