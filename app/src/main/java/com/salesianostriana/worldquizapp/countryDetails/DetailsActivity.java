@@ -1,6 +1,7 @@
 package com.salesianostriana.worldquizapp.countryDetails;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 
 import android.os.AsyncTask;
@@ -27,12 +28,16 @@ import technolifestyle.com.imageslider.FlipperView;
 public class DetailsActivity extends AppCompatActivity /*implements ResultFragment.OnListFragmentInteractionListener*/ {
 
     UnsplashService service;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+        //getSupportActionBar().setTitle(getIntent().getExtras().get("nameCountry").toString());
+        toolbar = findViewById(R.id.toolbarDetails);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getIntent().getExtras().get("nameCountry").toString());
 
         service = UnsplashGenerator.createService(UnsplashService.class);
