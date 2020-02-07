@@ -6,5 +6,15 @@
         android:id="@+id/filtroCountry"
         android:icon="@drawable/ic_filter_android"
         android:title="filtroCountry"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom" >
+
+        <menu>
+            <item android:id="@+id/filterCurrency"
+                android:title="Sub item" />
+            <item android:id="@+id/filterLanguage"
+                android:title="Sub item 2" />
+        </menu>
+
+
+    </item>
 </menu>
