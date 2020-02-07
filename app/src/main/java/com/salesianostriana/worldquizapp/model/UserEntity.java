@@ -16,7 +16,14 @@ UserEntity {
 
 
     public double getAverageScore(){
-        return totalPoints/attemps;
+        if(totalPoints == 0 || attemps == 0) {
+            double nuevoUsuario=0;
+            return nuevoUsuario;
+        }
+        else{
+
+            return totalPoints/attemps;
+        }
     }
 
 

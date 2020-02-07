@@ -71,4 +71,7 @@ dependencies {
 
     //Toast Library
     implementation 'com.github.GrenderG:Toasty:1.4.2'
+
+    //Lotties
+    implementation 'com.airbnb.android:lottie:3.3.1'
 }
