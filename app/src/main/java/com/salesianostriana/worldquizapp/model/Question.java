@@ -37,17 +37,20 @@ public class Question {
                 typeTwo();
                 break;
             case 2:
-                typeThree();
-                break;
-            case 3:
+//                typeThree();
                 typeFour();
                 break;
-            case 4:
+            case 3:
                 typeFive();
+//                typeFour();
                 break;
-            case 5:
+            case 4:
                 typeSix();
+//                typeFive();
                 break;
+//            case 5:
+//                typeSix();
+//                break;
 
         }
     }
