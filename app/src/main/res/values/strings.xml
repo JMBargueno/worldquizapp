@@ -27,5 +27,8 @@
     <string name="puntosPlain">Puntos: </string>
     <string name="efectividadPlain">Efectividad: </string>
     <string name="title_activity_maps">Map</string>
+    <string name="country_capital">Capital:</string>
+    <string name="country_hab">Habitantes:</string>
+    <string name="country_lang">Idioma:</string>
 
 </resources>
