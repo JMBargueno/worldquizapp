@@ -7,6 +7,7 @@ import lombok.NonNull;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -259,6 +260,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
             builderFinish.setCancelable(false);
             builderFinish.setMessage("¡Ha ganado " + Integer.toString(quizzPoints) + " puntos!");
             builderFinish.show();
+
 
         } else {
             progressBar.setProgress(listPosition + 1);

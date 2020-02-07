@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
             //Iniciar quizz
             case R.id.buttonGoQuizz:
                 Intent i = new Intent(MainActivity.this, QuizzActivity.class);
-                startActivity(i);
+                startActivityForResult(i,10001);
                 break;
 
             case R.id.menu_logout:
