@@ -17,6 +17,7 @@ public class Question {
     private Response trueResponse, failResponse, failResponse2;
     private List<Country> selectedCountryList;
     private int typeOfQuestion;
+    private List<Country> fullCountryList;
 
     private List<String> nearCountries;
 
@@ -25,9 +26,10 @@ public class Question {
     }
 //TODO Implementar el random de paises para que seleccione
 
-    public Question(List<Country> selectedCountryList, int typeOfQuestion) {
+    public Question(List<Country> selectedCountryList, int typeOfQuestion, List<Country> fullCountryList) {
         this.selectedCountryList = selectedCountryList;
         this.typeOfQuestion = typeOfQuestion;
+        this.fullCountryList = fullCountryList;
         switch (typeOfQuestion) {
             case 0:
                 typeOne();
@@ -93,30 +95,34 @@ public class Question {
 
     //Paises limitrofes
     private void typeFour() {
+        List<String> emptyList = new ArrayList<>();
+        List<List<String>> listCountryCodeToSelect = new ArrayList<>();
 
-        List<List<String>> listCountryToSelect = new ArrayList<>();
+        //Si la lista esta vacia, le setea una vacia
+        List<String> listBorderOne = selectedCountryList.get(0).getBorders().isEmpty() ? emptyList : selectedCountryList.get(0).getBorders();
+        //Si la lista esta vacia, le setea una vacia
+        List<String> listBorderTwo = selectedCountryList.get(1).getBorders().isEmpty() ? emptyList : selectedCountryList.get(1).getBorders();
+        //Si la lista esta vacia, le setea una vacia
+        List<String> listBorderThree = selectedCountryList.get(2).getBorders().isEmpty() ? emptyList : selectedCountryList.get(2).getBorders();
 
-        List<String> listBorderOne = selectedCountryList.get(0).getBorders().isEmpty() ? null : selectedCountryList.get(0).getBorders();
 
-        List<String> listBorderTwo = selectedCountryList.get(1).getBorders().isEmpty() ? null : selectedCountryList.get(1).getBorders();
+        //Guardo las listas de iso code en una lista de lista de iso code
+        listCountryCodeToSelect.add(listBorderOne);
+        listCountryCodeToSelect.add(listBorderTwo);
+        listCountryCodeToSelect.add(listBorderThree);
 
-        List<String> listBorderThree = selectedCountryList.get(2).getBorders().isEmpty() ? null : selectedCountryList.get(2).getBorders();
-
-
-        listCountryToSelect.add(listBorderOne);
-        listCountryToSelect.add(listBorderTwo);
-        listCountryToSelect.add(listBorderThree);
-
-       // new getOneBorderCountryAsyncTask(listCountryToSelect).execute();
+        //Seteo nearCountries con el metodo
+        this.nearCountries = getCountryBordersList(listCountryCodeToSelect);
 
 
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es el pais limítrofe de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
-        this.setTrueResponse(new Response("", true));
+        //Cojo el primer resultado, etc..
+        this.setTrueResponse(new Response(nearCountries.get(0), true));
         //Seteamos respuestas incorrectas
-        this.setFailResponse(new Response("", false));
-        this.setFailResponse2(new Response("", false));
+        this.setFailResponse(new Response(nearCountries.get(1), false));
+        this.setFailResponse2(new Response(nearCountries.get(2), false));
     }
 
     //Bandera pais
@@ -144,35 +150,39 @@ public class Question {
 
     }
 
-    public class getOneBorderCountryAsyncTask extends AsyncTask<List<List<String>>, Void, List<String>> {
-        List<List<String>> countryListCode;
 
-        public getOneBorderCountryAsyncTask(List<List<String>> countryListCode) {
-            this.countryListCode = countryListCode;
-        }
+    private List<String> getCountryBordersList(List<List<String>> listCountryCodeToSelect) {
+        String selectIsoCode;
+        String selectedCountry;
+        List<String> searchedCountries = new ArrayList<>();
 
-        @Override
-        protected List<String> doInBackground(List<List<String>>... lists) {
-            String selectedcodeCountry;
-            List<String> fullCountryNameList = new ArrayList<>();
+        //Recorro una lista de la lista
+        for (List<String> listBordersIsoCode : listCountryCodeToSelect) {
+            //Si la lista no esta vacia
+            if (!listBordersIsoCode.isEmpty()) {
+                //Cojo un random
+                int randomIsoCode = ThreadLocalRandom.current().nextInt(0, listBordersIsoCode.size() - 1);
+                //Selecciono un iso code de la lista de mamera random
+                selectIsoCode = listBordersIsoCode.get(randomIsoCode);
 
-            for (List<String> selectedCountryLimitOfCountry : countryListCode) {
-                if (selectedCountryLimitOfCountry.isEmpty()) {
-                    selectedcodeCountry = null;
-                } else {
-                    int randomNum = ThreadLocalRandom.current().nextInt(0, countryListCode.size() - 1);
-                    selectedcodeCountry = selectedCountryLimitOfCountry.get(randomNum);
+                //Recorro cada pais de la lista entera de paises
+                for (Country country : fullCountryList) {
+                    //Si el pais tiene el mismo iso code que el iso code seleccionado de manera random
+                    if (country.getAlpha3Code() == selectIsoCode) {
+                        //Cojo su nombre
+                        selectedCountry = country.getName();
+                        // Y lo añado a la lista
+                        searchedCountries.add(selectedCountry);
+                    }
                 }
-                fullCountryNameList.add(selectedcodeCountry);
+                //Si esta vacia, añado "Ninguno"
+            } else {
+                searchedCountries.add("Ninguno");
             }
-
-            return fullCountryNameList;
         }
-
-        @Override
-        protected void onPostExecute(List<String> nearCountriesList) {
-            setNearCountries(nearCountriesList);
-        }
+        //Devuelvo la lista de string con el nombre de los paises
+        return searchedCountries;
     }
+
 
 }
