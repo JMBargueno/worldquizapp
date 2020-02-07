@@ -257,7 +257,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }
             });
             builderFinish.setCancelable(false);
-            builderFinish.setMessage("Ha ganado " + Integer.toString(quizzPoints));
+            builderFinish.setMessage("¡Ha ganado " + Integer.toString(quizzPoints) + " puntos!");
             builderFinish.show();
 
         } else {
