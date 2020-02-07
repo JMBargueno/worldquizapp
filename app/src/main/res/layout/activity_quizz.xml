@@ -61,12 +61,12 @@
 
         <Button
             android:id="@+id/buttonResponse1"
-            android:layout_width="250dp"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="80dp"
             android:text="Button"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="Button"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/buttonResponse1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/buttonResponse1"
@@ -87,6 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="Button"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/buttonResponse2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/buttonResponse2"

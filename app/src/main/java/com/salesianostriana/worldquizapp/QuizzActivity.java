@@ -137,7 +137,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }
                 checkResponse();
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -154,7 +154,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }
                 checkResponse();
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -171,7 +171,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }
                 checkResponse();
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
