@@ -15,15 +15,12 @@ public class Question {
     private String title;
     private Country selectedCountry;
     private Response trueResponse, failResponse, failResponse2;
+    //Lista de paises seleccionados
     private List<Country> selectedCountryList;
     private int typeOfQuestion;
 
     //Lista de todos los paises completa
     private List<Country> fullCountryList;
-
-    //Lista de strings de paises cercanos, el 0 es el verdadero
-    private List<String> nearCountries;
-
 
 
 //TODO Implementar el random de paises para que seleccione
@@ -40,17 +37,20 @@ public class Question {
                 typeTwo();
                 break;
             case 2:
-                typeThree();
-                break;
-            case 3:
+//                typeThree();
                 typeFour();
                 break;
-            case 4:
+            case 3:
                 typeFive();
+//                typeFour();
                 break;
-            case 5:
+            case 4:
                 typeSix();
+//                typeFive();
                 break;
+//            case 5:
+//                typeSix();
+//                break;
 
         }
     }
@@ -97,8 +97,8 @@ public class Question {
 
     //Paises limitrofes
     private void typeFour() {
-        List<String> emptyList = new ArrayList<>();
         List<List<String>> listCountryCodeToSelect = new ArrayList<>();
+        List<String> listOfBorderCountries;
 
         //Si la lista esta vacia, le setea una vacia
         List<String> listBorderOne = selectedCountryList.get(0).getBorders();
@@ -113,18 +113,18 @@ public class Question {
         listCountryCodeToSelect.add(listBorderTwo);
         listCountryCodeToSelect.add(listBorderThree);
 
-        //Seteo nearCountries con el metodo
-
+        //Seteo listOfBorderCountries con el metodo
+        listOfBorderCountries = getCountryBordersList(listCountryCodeToSelect);
 
 
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es el pais limítrofe de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
         //Cojo el primer resultado, etc..
-        this.setTrueResponse(new Response("", true));
+        this.setTrueResponse(new Response(listOfBorderCountries.get(0), true));
         //Seteamos respuestas incorrectas
-        this.setFailResponse(new Response("", false));
-        this.setFailResponse2(new Response("", false));
+        this.setFailResponse(new Response(listOfBorderCountries.get(1), false));
+        this.setFailResponse2(new Response(listOfBorderCountries.get(2), false));
     }
 
     //Bandera pais
@@ -156,6 +156,24 @@ public class Question {
     private List<String> getCountryBordersList(List<List<String>> listCountryCodeToSelect) {
         //Lista de paises buscado por isocode
         List<String> searchedCountriesByIsoCode = new ArrayList<>();
+
+        for (List<String> listOfIsoCodeOfOneCountry : listCountryCodeToSelect) {
+            if (!listOfIsoCodeOfOneCountry.isEmpty()) {
+                int randomIsoCode = ThreadLocalRandom.current().nextInt(0, listOfIsoCodeOfOneCountry.size() - 1);
+                String selectCountryByIsoCode = listOfIsoCodeOfOneCountry.get(randomIsoCode);
+                for (Country country : fullCountryList) {
+
+                    if (country.getAlpha3Code().equals(selectCountryByIsoCode)) {
+                        searchedCountriesByIsoCode.add(country.getName());
+                    }
+
+                }
+
+
+            } else {
+                searchedCountriesByIsoCode.add("Sin fronteras");
+            }
+        }
 
         return searchedCountriesByIsoCode;
     }
