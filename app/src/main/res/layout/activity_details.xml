@@ -10,13 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <technolifestyle.com.imageslider.FlipperLayout
-        android:id="@+id/flipper"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></technolifestyle.com.imageslider.FlipperLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarDetails"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/AppTheme.AppBarOverlay"
+            app:titleTextColor="@color/whiteColor" />
+
+        <technolifestyle.com.imageslider.FlipperLayout
+            android:id="@+id/flipper"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarDetails"></technolifestyle.com.imageslider.FlipperLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutOne"
