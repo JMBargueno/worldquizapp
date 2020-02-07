@@ -18,14 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.salesianostriana.worldquizapp.model.UserEntity;
-import com.salesianostriana.worldquizapp.model.unsplash.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,8 +30,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
-import lombok.val;
-import lombok.var;
 
 
 /**
@@ -90,8 +85,8 @@ public class UserEntityRankingFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof RecyclerView) {
-             context = view.getContext();
-             recyclerView = (RecyclerView) view;
+            context = view.getContext();
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -101,33 +96,6 @@ public class UserEntityRankingFragment extends Fragment {
         }
 
         listaDummyUsuarios = new ArrayList<>();
-
-
-        myDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                if (task.isSuccessful()) {
-                    // Task completed successfully
-                    listaDummyUsuarios = task.getResult().toObjects(UserEntity.class);
-                    Collections.sort(listaDummyUsuarios, new comparadorPuntos());
-                    adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
-                    recyclerView.setAdapter(adapter);
-                } else {
-                    // Task failed with an exception
-                    Exception exception = task.getException();
-                }
-
-
-            }
-        });
-
-
-
-
-
-
-
 
         return view;
     }
@@ -191,8 +159,8 @@ public class UserEntityRankingFragment extends Fragment {
 
                 } else {
                     item.setIcon(R.drawable.ic_filter_black_android);
-                    Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
                     Toasty.info(context, "Ordenado por efectividad", Toast.LENGTH_SHORT).show();
+                    Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
                     adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
                     recyclerView.setAdapter(adapter);
 
@@ -205,6 +173,37 @@ public class UserEntityRankingFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onResume() {
+
+
+        super.onResume();
+        Toasty.info(context, "Prueba de totus", Toast.LENGTH_SHORT).show();
+
+
+        myDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if (task.isSuccessful()) {
+                    // Task completed successfully
+                    listaDummyUsuarios = task.getResult().toObjects(UserEntity.class);
+                    Collections.sort(listaDummyUsuarios, new comparadorPuntos());
+                    adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios, mListener, context);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    // Task failed with an exception
+                    Exception exception = task.getException();
+                }
+
+
+            }
+        });
+
+
+
+
+    }
 }
 
 class comparadorPuntos implements Comparator<UserEntity> {
