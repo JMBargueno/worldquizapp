@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private String TAG = "LoginActivity";
     private FirebaseAuth mAuth;
     private int RC_SIGN_IN = 1;
+    private LottieAnimationView dinamita;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -53,6 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         signInButton = findViewById(R.id.sign_in_button);
         mAuth = FirebaseAuth.getInstance();
+        dinamita = findViewById(R.id.dinamitaAnimacion);
+        dinamita.setVisibility(View.GONE);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -65,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 signIn();
+                dinamita.setVisibility(View.VISIBLE);
             }
         });
 
