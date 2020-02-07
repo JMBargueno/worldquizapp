@@ -17,13 +17,15 @@ public class Question {
     private Response trueResponse, failResponse, failResponse2;
     private List<Country> selectedCountryList;
     private int typeOfQuestion;
+
+    //Lista de todos los paises completa
     private List<Country> fullCountryList;
 
+    //Lista de strings de paises cercanos, el 0 es el verdadero
     private List<String> nearCountries;
 
-    public void setNearCountries(List<String> nearCountries) {
-        this.nearCountries = nearCountries;
-    }
+
+
 //TODO Implementar el random de paises para que seleccione
 
     public Question(List<Country> selectedCountryList, int typeOfQuestion, List<Country> fullCountryList) {
@@ -99,11 +101,11 @@ public class Question {
         List<List<String>> listCountryCodeToSelect = new ArrayList<>();
 
         //Si la lista esta vacia, le setea una vacia
-        List<String> listBorderOne = selectedCountryList.get(0).getBorders().isEmpty() ? emptyList : selectedCountryList.get(0).getBorders();
+        List<String> listBorderOne = selectedCountryList.get(0).getBorders();
         //Si la lista esta vacia, le setea una vacia
-        List<String> listBorderTwo = selectedCountryList.get(1).getBorders().isEmpty() ? emptyList : selectedCountryList.get(1).getBorders();
+        List<String> listBorderTwo = selectedCountryList.get(1).getBorders();
         //Si la lista esta vacia, le setea una vacia
-        List<String> listBorderThree = selectedCountryList.get(2).getBorders().isEmpty() ? emptyList : selectedCountryList.get(2).getBorders();
+        List<String> listBorderThree = selectedCountryList.get(2).getBorders();
 
 
         //Guardo las listas de iso code en una lista de lista de iso code
@@ -112,17 +114,17 @@ public class Question {
         listCountryCodeToSelect.add(listBorderThree);
 
         //Seteo nearCountries con el metodo
-        this.nearCountries = getCountryBordersList(listCountryCodeToSelect);
+
 
 
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es el pais limítrofe de " + selectedCountryList.get(0).getName() + "?");
         //Respuesta correcta
         //Cojo el primer resultado, etc..
-        this.setTrueResponse(new Response(nearCountries.get(0), true));
+        this.setTrueResponse(new Response("", true));
         //Seteamos respuestas incorrectas
-        this.setFailResponse(new Response(nearCountries.get(1), false));
-        this.setFailResponse2(new Response(nearCountries.get(2), false));
+        this.setFailResponse(new Response("", false));
+        this.setFailResponse2(new Response("", false));
     }
 
     //Bandera pais
@@ -152,36 +154,10 @@ public class Question {
 
 
     private List<String> getCountryBordersList(List<List<String>> listCountryCodeToSelect) {
-        String selectIsoCode;
-        String selectedCountry;
-        List<String> searchedCountries = new ArrayList<>();
+        //Lista de paises buscado por isocode
+        List<String> searchedCountriesByIsoCode = new ArrayList<>();
 
-        //Recorro una lista de la lista
-        for (List<String> listBordersIsoCode : listCountryCodeToSelect) {
-            //Si la lista no esta vacia
-            if (!listBordersIsoCode.isEmpty()) {
-                //Cojo un random
-                int randomIsoCode = ThreadLocalRandom.current().nextInt(0, listBordersIsoCode.size() - 1);
-                //Selecciono un iso code de la lista de mamera random
-                selectIsoCode = listBordersIsoCode.get(randomIsoCode);
-
-                //Recorro cada pais de la lista entera de paises
-                for (Country country : fullCountryList) {
-                    //Si el pais tiene el mismo iso code que el iso code seleccionado de manera random
-                    if (country.getAlpha3Code() == selectIsoCode) {
-                        //Cojo su nombre
-                        selectedCountry = country.getName();
-                        // Y lo añado a la lista
-                        searchedCountries.add(selectedCountry);
-                    }
-                }
-                //Si esta vacia, añado "Ninguno"
-            } else {
-                searchedCountries.add("Ninguno");
-            }
-        }
-        //Devuelvo la lista de string con el nombre de los paises
-        return searchedCountries;
+        return searchedCountriesByIsoCode;
     }
 
 
