@@ -47,7 +47,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
-        //holder.imageCountry.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.fade_transition_animation));
+        holder.imageCountry.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.fade_transition_animation));
 
         holder.cardView.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.fade_scale_animation));
 
