@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,6 +48,7 @@ public class CountryFragment extends Fragment {
     CountryService service;
     boolean ordenAsc = false;
     List<Country> filterCountries;
+    MenuItem itemFilter;
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -155,11 +157,49 @@ public class CountryFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.filtroCountry:
 
-                if(ordenAsc){
-                    item.setIcon(R.drawable.ic_filter_black_android);
-                    Toasty.info(context, "Ordenado por idioma", Toasty.LENGTH_SHORT).show();
-                    Collections.sort(filterCountries, new ComparatorLanguage());
-                    recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
+                final MenuItem itemFiltro;
+
+                itemFiltro = item;
+
+                if(itemFiltro.hasSubMenu()){
+
+                    itemFiltro.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            switch (itemFiltro.getItemId()){
+
+                                case R.id.filterCurrency:
+                                    Toast.makeText(context, "Currency", Toast.LENGTH_SHORT).show();
+                                    break;
+                                    
+                                case R.id.filterLanguage:
+                                    Toast.makeText(context, "Idioma", Toast.LENGTH_SHORT).show();
+                                    break;
+
+                            }
+                            return false;
+                        }
+                    });
+                    if(itemFiltro.getSubMenu().getItem().getItemId() == R.id.filterLanguage){
+                        /*item.setIcon(R.drawable.ic_filter_black_android);
+                        Toasty.info(context, "Ordenado por idioma", Toasty.LENGTH_SHORT).show();
+                        Collections.sort(filterCountries, new ComparatorLanguage());
+                        recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));*/
+                        Toast.makeText(context, "Filtro de Lenguaje", Toast.LENGTH_SHORT).show();
+                    }else if(item.getSubMenu().getItem().getItemId() == R.id.filterCurrency){
+                        /*item.setIcon(R.drawable.ic_filter_android);
+                        Toasty.info(context, "Ordenado por moneda", Toasty.LENGTH_SHORT).show();
+                        //Collections.sort(filterCountries);
+                        Collections.sort(filterCountries, new ComparatorCurrency());
+                        recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));*/
+                    }
+                }
+
+                /*if(ordenAsc){
+                        item.setIcon(R.drawable.ic_filter_black_android);
+                        Toasty.info(context, "Ordenado por idioma", Toasty.LENGTH_SHORT).show();
+                        Collections.sort(filterCountries, new ComparatorLanguage());
+                        recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
 
                 }else {
 
@@ -170,7 +210,7 @@ public class CountryFragment extends Fragment {
                     recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
 
                 }
-                ordenAsc = !ordenAsc;
+                ordenAsc = !ordenAsc;*/
                 break;
         }
 

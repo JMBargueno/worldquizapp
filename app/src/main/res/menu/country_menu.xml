@@ -9,10 +9,12 @@
         app:showAsAction="ifRoom" >
 
         <menu>
-            <item android:id="@+id/filterCurrency"
-                android:title="Sub item" />
-            <item android:id="@+id/filterLanguage"
-                android:title="Sub item 2" />
+            <item
+                android:id="@+id/filterLanguage"
+                android:title="Idioma" />
+            <item
+                android:id="@+id/filterCurrency"
+                android:title="Moneda" />
         </menu>
 
 
