@@ -72,7 +72,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                String isoCode = marker.getTag().toString();
+
                 return false;
             }
         });
@@ -80,6 +80,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(LayoutInflater.from(getActivity())));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(40.0, -4.0)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(4f));
+
     }
 
     public class CountriesAsyncTask extends AsyncTask<List<Country>, Void, List<Country>> {

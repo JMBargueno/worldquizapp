@@ -30,17 +30,21 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         tvCapital = v.findViewById(R.id.textViewName);
         tvLang = v.findViewById(R.id.textViewLang);
         tvHabs = v.findViewById(R.id.textViewHab);
+        ivFlag = v.findViewById(R.id.imageViewFlag);
+
+        String url = m.getSnippet();
+
+        Glide
+                .with(v.getContext())
+                .load(url)
+                .thumbnail(Glide.with(v.getContext()).load(m.getSnippet()))
+                .into(ivFlag);
 
         tvTitle.setText(info[0]);
         tvCapital.setText(info[1]);
         tvHabs.setText(info[2]);
         tvLang.setText(info[3]);
 
-        ivFlag = v.findViewById(R.id.imageViewFlag);
-        Glide
-                .with(inflater.getContext())
-                .load(m.getSnippet())
-                .into(ivFlag);
         return v;
     }
 

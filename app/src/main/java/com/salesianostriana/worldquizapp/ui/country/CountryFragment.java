@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,6 +52,7 @@ public class CountryFragment extends Fragment {
     MenuItem itemFilter;
     int countCurrency = 0;
     int countLanguage = 0;
+    MyCountryRecyclerViewAdapter adapter;
 
 
     // TODO: Customize parameter argument names
@@ -152,6 +154,20 @@ public class CountryFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.country_menu, menu);
+        MenuItem itemFilter = menu.findItem(R.id.searchViewFilter);
+        SearchView searchView = (SearchView) itemFilter.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -248,7 +264,8 @@ public class CountryFragment extends Fragment {
         protected void onPostExecute(List<Country> countries) {
             Collections.sort(countries);
 
-            recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(countries, mListener));
+            adapter = new MyCountryRecyclerViewAdapter(countries, mListener);
+            recyclerView.setAdapter(adapter);
 
             filterCountries = new ArrayList<>(countries) ;
 
