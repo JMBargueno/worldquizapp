@@ -182,7 +182,6 @@ public class UserEntityRankingFragment extends Fragment {
             case R.id.filtroRanking:
                 if(ordenAsc) {
 
-                    item.setIcon(R.drawable.ic_filter);
                     Toasty.info(context, "Ordenado por puntos", Toast.LENGTH_SHORT).show();
                     Collections.sort(listaDummyUsuarios, new comparadorPuntos());
                     adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
@@ -190,7 +189,7 @@ public class UserEntityRankingFragment extends Fragment {
 
 
                 } else {
-                    item.setIcon(R.drawable.ic_filter_black);
+
                     Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
                     Toasty.info(context, "Ordenado por efectividad", Toast.LENGTH_SHORT).show();
                     adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);

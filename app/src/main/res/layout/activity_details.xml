@@ -70,7 +70,6 @@
                     android:layout_below="@id/imageViewPeopleD"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="TextView"
                     android:textSize="24sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -104,7 +103,6 @@
                     android:layout_below="@id/imageViewCurrencyD"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="TextView"
                     android:textSize="24sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -151,7 +149,6 @@
                     android:layout_below="@id/imageViewCapitalD"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="TextView"
                     android:textSize="24sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -185,7 +182,6 @@
                     android:layout_below="@id/imageViewLanguageD"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="TextView"
                     android:textSize="24sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
