@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.salesianostriana.worldquizapp.ui.dashboard.MapFragment"
+        android:name="com.salesianostriana.worldquizapp.ui.maps.MapFragment"
         android:label="Map" />
 
     <fragment

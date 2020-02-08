@@ -1,6 +1,5 @@
-package com.salesianostriana.worldquizapp.ui.dashboard;
+package com.salesianostriana.worldquizapp.ui.maps;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,21 +24,22 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     @Override
     public View getInfoContents(final Marker m) {
         View v = inflater.inflate(R.layout.infowindow_layout, null);
+        String[] info = m.getTitle().split("#");
 
         tvTitle = v.findViewById(R.id.textViewTitle);
         tvCapital = v.findViewById(R.id.textViewName);
         tvLang = v.findViewById(R.id.textViewLang);
         tvHabs = v.findViewById(R.id.textViewHab);
 
-        tvTitle.setText(m.getTitle());
-        tvCapital.setText(m.getSnippet());
-        tvLang.setText("Uno mu raro");
-        tvHabs.setText("25.000 o más");
+        tvTitle.setText(info[0]);
+        tvCapital.setText(info[1]);
+        tvHabs.setText(info[2]);
+        tvLang.setText(info[3]);
 
         ivFlag = v.findViewById(R.id.imageViewFlag);
         Glide
                 .with(inflater.getContext())
-                .load(R.drawable.ic_flag)
+                .load(m.getSnippet())
                 .into(ivFlag);
         return v;
     }
