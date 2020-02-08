@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -48,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     private int RC_SIGN_IN = 1;
     private LottieAnimationView dinamita;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ImageView worldLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,14 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         dinamita = findViewById(R.id.dinamitaAnimacion);
         dinamita.setVisibility(View.GONE);
+
+        worldLogo = findViewById(R.id.imageViewLogo);
+
+        Glide
+                .with(this)
+                .load(R.drawable.ic_earth_logo)
+                .thumbnail(Glide.with(this).load(R.drawable.ic_earth_logo))
+                .into(worldLogo);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
