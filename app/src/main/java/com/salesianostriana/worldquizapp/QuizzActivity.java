@@ -275,26 +275,31 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
             buttonList.add(optionTwo);
             buttonList.add(optionThree);
             int randomButton;
+            int range;
 
             for (int i = 0; i < 3; i++) {
                 Button button = null;
 
                 switch (i) {
                     case 0:
-                        randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size() - 1);
+                        range = (buttonList.size() - 1) + 1 ;
+                        randomButton = (int)(Math.random() * range) + 0;
+
                         button = buttonList.get(randomButton);
                         button.setText(quiz.getQuestionList().get(listPosition).getTrueResponse().getTitle());
                         button.setTag(quiz.getQuestionList().get(listPosition).getTrueResponse().getBooleanValue());
                         buttonList.remove(button);
                         break;
                     case 1:
-                        randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size() - 1);
+                        range = (buttonList.size() - 1) + 1 ;
+                        randomButton = (int)(Math.random() * range) + 0;
                         button = buttonList.get(randomButton);
                         button.setText(quiz.getQuestionList().get(listPosition).getFailResponse().getTitle());
                         button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse().getBooleanValue());
                         buttonList.remove(button);
                         break;
                     case 2:
+
                         button = buttonList.get(0);
                         button.setText(quiz.getQuestionList().get(listPosition).getFailResponse2().getTitle());
                         button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse2().getBooleanValue());

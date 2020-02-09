@@ -159,7 +159,8 @@ public class Question {
 
         for (List<String> listOfIsoCodeOfOneCountry : listCountryCodeToSelect) {
             if (!listOfIsoCodeOfOneCountry.isEmpty()) {
-                int randomIsoCode = ThreadLocalRandom.current().nextInt(0, listOfIsoCodeOfOneCountry.size() - 1);
+                int range = (listOfIsoCodeOfOneCountry.size() -1) + 1 ;
+                int randomIsoCode = (int)(Math.random() * range) + 0;
                 String selectCountryByIsoCode = listOfIsoCodeOfOneCountry.get(randomIsoCode);
                 for (Country country : fullCountryList) {
 
