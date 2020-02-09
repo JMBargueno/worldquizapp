@@ -10,6 +10,7 @@ import retrofit2.Response;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -91,6 +92,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
         questionTitle = findViewById(R.id.textViewQuestion);
         optionOne = findViewById(R.id.buttonResponse1);
+        optionOne.setBackgroundResource(R.drawable.custom_quizz_button);
         optionTwo = findViewById(R.id.buttonResponse2);
         optionThree = findViewById(R.id.buttonResponse3);
         nextOption = findViewById(R.id.buttonNext);
