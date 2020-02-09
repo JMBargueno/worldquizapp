@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
                 break;
 
             case R.id.menu_logout:
+                mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();
                 Intent login = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(login);
