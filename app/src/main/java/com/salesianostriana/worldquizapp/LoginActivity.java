@@ -109,13 +109,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Correcto",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login Correcto",Toast.LENGTH_SHORT).show();
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
                     Intent i = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(i);
                 }else{
-                    Toast.makeText(LoginActivity.this, "Incorrecto",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login Incorrecto",Toast.LENGTH_SHORT).show();
                     updateUI(null);
                 }
             }
@@ -157,7 +157,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-            Toast.makeText(LoginActivity.this, account.getDisplayName() + account.getEmail() ,Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-
 public class Question {
     private String title;
     private Country selectedCountry;
