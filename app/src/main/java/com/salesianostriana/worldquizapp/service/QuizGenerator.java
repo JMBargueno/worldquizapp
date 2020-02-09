@@ -73,7 +73,9 @@ public class QuizGenerator {
     private List<Country> generateSelectedCountryList() {
         List<Country> selectCountries = new ArrayList<>();
         for (int i = 0; i < COUNTRY_LIST_NUMBER; i++) {
-            int randomNum = ThreadLocalRandom.current().nextInt(0, fullCountryList.size());
+            int range = (fullCountryList.size() - 1) + 1;
+            int randomNum = (int)(Math.random() * range) + 0;
+                    //ThreadLocalRandom.current().nextInt(0, fullCountryList.size());
             Country country;
             country = fullCountryList.get(randomNum);
             selectCountries.add(country);
