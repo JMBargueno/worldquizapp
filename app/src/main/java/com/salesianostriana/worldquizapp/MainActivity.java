@@ -2,30 +2,25 @@ package com.salesianostriana.worldquizapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
 import com.google.firebase.auth.FirebaseAuth;
-import com.salesianostriana.worldquizapp.repository.CountryRepository;
-import com.salesianostriana.worldquizapp.repository.CountryService;
-import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 
-
+import com.google.firebase.auth.FirebaseUser;
 import com.salesianostriana.worldquizapp.model.Country;
 import com.salesianostriana.worldquizapp.ui.country.CountryFragment;
 
 import com.salesianostriana.worldquizapp.model.UserEntity;
-
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,20 +30,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-
-import java.util.List;
-
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 
 public class MainActivity extends AppCompatActivity implements CountryFragment.OnListFragmentInteractionListener, IRankingListener {
 
 
     private Country item;
     private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
     /*private CountryService service;*/
     Toolbar toolbar;
     private ImageView imagenPerfilToolbar;
@@ -125,8 +114,15 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
                 break;
 
             case R.id.menu_logout:
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestEmail()
+                        .build();
+
+                mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
                 mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();
+                mGoogleSignInClient.signOut();
                 Intent login = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(login);
                 break;
