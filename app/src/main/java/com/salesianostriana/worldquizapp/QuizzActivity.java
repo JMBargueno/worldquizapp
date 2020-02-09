@@ -85,6 +85,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
+        quizzPoints = 0;
+
+        listPosition = 0;
 
         questionTitle = findViewById(R.id.textViewQuestion);
         optionOne = findViewById(R.id.buttonResponse1);
@@ -93,7 +96,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         nextOption = findViewById(R.id.buttonNext);
         backOption = findViewById(R.id.buttonBack);
         progressBar = findViewById(R.id.progressBar);
-
+        progressBar.setProgress(0);
         nextOption.setOnClickListener(this);
         backOption.setOnClickListener(this);
 
@@ -260,6 +263,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
             builderFinish.setCancelable(false);
             builderFinish.setMessage("¡Ha ganado " + Integer.toString(quizzPoints) + " puntos!");
             builderFinish.show();
+
 
 
         } else {
