@@ -118,20 +118,10 @@ public class UserEntityRankingFragment extends Fragment {
                     Exception exception = task.getException();
                 }
 
-
             }
         });
-
-
-
-
-
-
-
-
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -149,19 +139,6 @@ public class UserEntityRankingFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -187,14 +164,12 @@ public class UserEntityRankingFragment extends Fragment {
                     adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
                     recyclerView.setAdapter(adapter);
 
-
                 } else {
 
                     Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
                     Toasty.info(context, "Ordenado por efectividad", Toast.LENGTH_SHORT).show();
                     adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
                     recyclerView.setAdapter(adapter);
-
 
                 }
                 ordenAsc = !ordenAsc;
@@ -208,12 +183,12 @@ public class UserEntityRankingFragment extends Fragment {
 
 class comparadorPuntos implements Comparator<UserEntity> {
     public int compare(UserEntity a, UserEntity b) {
-        return (String.valueOf(b.getTotalPoints())).compareTo(String.valueOf(a.getTotalPoints()));
+        return b.getTotalPoints()-a.getTotalPoints();
     }
 }
 
 class comparadorEfectividad implements Comparator<UserEntity> {
     public int compare(UserEntity a, UserEntity b) {
-        return (String.valueOf(b.getAverageScore())).compareTo(String.valueOf(a.getAverageScore()));
+        return (int)(b.getAverageScore()-a.getAverageScore());
     }
 }
