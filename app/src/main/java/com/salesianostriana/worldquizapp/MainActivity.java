@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements CountryFragment.O
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
 
-        imagenPerfilToolbar = findViewById(R.id.imagenPerfil);
+        //imagenPerfilToolbar = findViewById(R.id.imagenPerfil);
 
-        Glide.with(this).load(account.getPhotoUrl()).apply(RequestOptions.bitmapTransform(new CropCircleTransformation())).into(imagenPerfilToolbar);
+        //Glide.with(this).load(account.getPhotoUrl()).apply(RequestOptions.bitmapTransform(new CropCircleTransformation())).into(imagenPerfilToolbar);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Worldmap");
