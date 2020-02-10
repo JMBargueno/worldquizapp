@@ -66,15 +66,11 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                         .snippet(country.getFlag())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 );
-
-                //m.setTag(country.getAlpha3Code());
             }
         }
-
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-
                 return false;
             }
         });
@@ -83,7 +79,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         mMap.setInfoWindowAdapter(adapter);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(40.0, -4.0)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(4f));
-
     }
 
     public class CountriesAsyncTask extends AsyncTask<List<Country>, Void, List<Country>> {
@@ -93,13 +88,11 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
             Call<List<Country>> call = service.getAllCountries();
             Response<List<Country>> response = null;
-
             try{
                 response = call.execute();
                 if(response.isSuccessful()){
                     return response.body();
                 }
-
             }catch (IOException e){
                 e.printStackTrace();
                 Toast.makeText(context, "Error de conexión", Toast.LENGTH_SHORT).show();
@@ -134,8 +127,5 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
             listCountries.add(capitalSalesiana);
             getMapAsync(MapFragment.this);
         }
-
     }
-
-
 }
