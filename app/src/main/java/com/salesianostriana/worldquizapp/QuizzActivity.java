@@ -71,7 +71,6 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     ImageView imageViewFlag;
 
 
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     CollectionReference usersRef = db.collection("users");
@@ -110,7 +109,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         progressBar.setProgress(0);
 
 
-        imageViewFlag = findViewById(R.id.imageViewFlag);
+        imageViewFlag = findViewById(R.id.imageViewFlagCustom);
 
         //ImageButtons
         /*btnImage = findViewById(R.id.buttonResponseCustom);
@@ -199,7 +198,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                     }, 2000);
                     quizzPoints += 1;
 
-                }else{
+                } else {
 
                     fallo.setVisibility(View.VISIBLE);
                     fallo.setProgress(0);
@@ -217,8 +216,6 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
 
                 }
-
-
 
 
                 break;
@@ -258,8 +255,6 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
 
                 }
-
-
 
 
                 break;
@@ -306,63 +301,6 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
     private void paintView(int listPosition) {
 
-if(listPosition == 3){
-
-    progressBar = findViewById(R.id.progressBar);
-    progressBar.setProgress(0);
-
-    progressBar.setProgress(listPosition + 1);
-    questionTitle.setText(quiz.getQuestionList().get(listPosition).getTitle());
-
-    questionTitle.setVisibility(View.INVISIBLE);
-
-
-    /*Glide
-            .with(this)
-            .load(quiz.getQuestionList().get(listPosition).getTitle())
-            .into(imageViewFlag);*/
-
-    List<Button> buttonList = new ArrayList<>();
-    buttonList.add(optionOne);
-    buttonList.add(optionTwo);
-    buttonList.add(optionThree);
-    int randomButton;
-    int range;
-
-    for (int i = 0; i < 3; i++) {
-        Button button = null;
-
-        switch (i) {
-            case 0:
-                range = (buttonList.size() - 1) + 1 ;
-                randomButton = (int)(Math.random() * range) + 0;
-                button = buttonList.get(randomButton);
-                button.setText(quiz.getQuestionList().get(listPosition).getTrueResponse().getTitle());
-                button.setTag(quiz.getQuestionList().get(listPosition).getTrueResponse().getBooleanValue());
-                buttonList.remove(button);
-            case 1:
-                range = (buttonList.size() - 1) + 1 ;
-                randomButton = (int)(Math.random() * range) + 0;
-                button = buttonList.get(randomButton);
-                button.setText(quiz.getQuestionList().get(listPosition).getFailResponse().getTitle());
-                button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse().getBooleanValue());
-                buttonList.remove(button);
-
-                break;
-            case 2:
-
-                button = buttonList.get(0);
-                button.setText(quiz.getQuestionList().get(listPosition).getFailResponse2().getTitle());
-                button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse2().getBooleanValue());
-                buttonList.remove(button);
-
-                break;
-        }
-    }
-
-
-}
-
         if (listPosition == 5) {
 
             String currentUserEmail = firebaseUser.getEmail();
@@ -400,12 +338,25 @@ if(listPosition == 3){
             builderFinish.show();
 
 
-
         } else {
 
             progressBar.setProgress(listPosition + 1);
-            questionTitle.setText(quiz.getQuestionList().get(listPosition).getTitle());
 
+            if (listPosition == 3) {
+                questionTitle.setVisibility(View.INVISIBLE);
+                imageViewFlag.setVisibility(View.VISIBLE);
+
+
+               Glide
+                        .with(this)
+                        .load(quiz.getQuestionList().get(listPosition).getTitle())
+                        .into(imageViewFlag);
+
+            } else {
+                questionTitle.setVisibility(View.VISIBLE);
+                imageViewFlag.setVisibility(View.INVISIBLE);
+                questionTitle.setText(quiz.getQuestionList().get(listPosition).getTitle());
+            }
             List<Button> buttonList = new ArrayList<>();
             buttonList.add(optionOne);
             buttonList.add(optionTwo);
@@ -418,8 +369,8 @@ if(listPosition == 3){
 
                 switch (i) {
                     case 0:
-                        range = (buttonList.size() - 1) + 1 ;
-                        randomButton = (int)(Math.random() * range) + 0;
+                        range = (buttonList.size() - 1) + 1;
+                        randomButton = (int) (Math.random() * range) + 0;
 
                         button = buttonList.get(randomButton);
                         button.setText(quiz.getQuestionList().get(listPosition).getTrueResponse().getTitle());
@@ -427,8 +378,8 @@ if(listPosition == 3){
                         buttonList.remove(button);
                         break;
                     case 1:
-                        range = (buttonList.size() - 1) + 1 ;
-                        randomButton = (int)(Math.random() * range) + 0;
+                        range = (buttonList.size() - 1) + 1;
+                        randomButton = (int) (Math.random() * range) + 0;
                         button = buttonList.get(randomButton);
                         button.setText(quiz.getQuestionList().get(listPosition).getFailResponse().getTitle());
                         button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse().getBooleanValue());
@@ -448,8 +399,6 @@ if(listPosition == 3){
         Log.i("LISTPOSITION", Integer.toString(listPosition));
 
     }
-
-
 
 
 }

@@ -134,9 +134,8 @@ public class Question {
     private void typeFive() {
         List<Country>listOfCountryForQuestion = selectThreeRandomCountry();
         //Seteamos titulo de la pregunta
-        this.setTitle("¿Cuál es la bandera de " + listOfCountryForQuestion.get(0).getTranslations().getEs() + "?");
+        this.setTitle(listOfCountryForQuestion.get(0).getFlag());
         //Respuesta correcta
-
         this.setTrueResponse(new Response(listOfCountryForQuestion.get(0).getTranslations().getEs(), true));
         //Seteamos respuestas incorrectas
         this.setFailResponse(new Response(listOfCountryForQuestion.get(1).getTranslations().getEs(), false));
