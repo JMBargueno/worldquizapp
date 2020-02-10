@@ -142,11 +142,15 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 if ((boolean) optionOne.getTag() == true) {
 
                     acierto.setVisibility(View.VISIBLE);
+                    acierto.setProgress(0);
+                    acierto.playAnimation();
+
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
-
                             acierto.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
                     quizzPoints += 1;
@@ -154,36 +158,37 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 } else {
 
                     fallo.setVisibility(View.VISIBLE);
+                    fallo.setProgress(0);
+                    fallo.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             fallo.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
 
 
                 }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
-
-                listPosition++;
-                paintView(listPosition);
                 break;
 
             case R.id.buttonResponse2:
                 if ((boolean) optionTwo.getTag() == true) {
 
                     acierto.setVisibility(View.VISIBLE);
+                    acierto.setProgress(0);
+                    acierto.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             acierto.setVisibility(View.GONE);
+                            acierto.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
                     quizzPoints += 1;
@@ -191,36 +196,40 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }else{
 
                     fallo.setVisibility(View.VISIBLE);
+                    fallo.setProgress(0);
+                    fallo.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             fallo.setVisibility(View.GONE);
+                            fallo.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
 
 
                 }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
 
 
-                listPosition++;
-                paintView(listPosition);
+
                 break;
             case R.id.buttonResponse3:
                 if ((boolean) optionThree.getTag() == true) {
 
                     acierto.setVisibility(View.VISIBLE);
+                    acierto.setProgress(0);
+                    acierto.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             acierto.setVisibility(View.GONE);
+                            acierto.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
                     quizzPoints += 1;
@@ -228,25 +237,25 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
                 } else {
                     fallo.setVisibility(View.VISIBLE);
+                    fallo.setProgress(0);
+                    fallo.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             fallo.setVisibility(View.GONE);
+                            fallo.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
-                    //Animacion fail
 
-                }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
                 }
 
 
-                listPosition++;
-                paintView(listPosition);
+
+
                 break;
 
         }
