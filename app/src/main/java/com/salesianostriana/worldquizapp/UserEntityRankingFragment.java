@@ -163,7 +163,7 @@ public class UserEntityRankingFragment extends Fragment {
 
                 } else {
 
-                    item.setIcon(R.drawable.ic_filter_black_android);
+                    item.setIcon(R.drawable.ic_filter_green);
 
 
                     Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
