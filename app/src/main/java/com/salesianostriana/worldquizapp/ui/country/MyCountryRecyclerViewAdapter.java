@@ -130,6 +130,10 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
                 for (Country country : listcountriesFilter){
                     if(country.getName().toLowerCase().contains(constraint.toString().toLowerCase())){
                         filteredList.add(country);
+                    }else if ((String.valueOf(country.getCurrencies().get(0).getCode())).toLowerCase().contains(constraint.toString().toLowerCase())){
+                        filteredList.add(country);
+                    }else if ((String.valueOf(country.getLanguages().get(0).getName())).toLowerCase().contains(constraint.toString().toLowerCase())){
+                        filteredList.add(country);
                     }
 
                 }

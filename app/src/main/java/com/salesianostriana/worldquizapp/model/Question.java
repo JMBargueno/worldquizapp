@@ -136,10 +136,11 @@ public class Question {
         //Seteamos titulo de la pregunta
         this.setTitle("¿Cuál es la bandera de " + listOfCountryForQuestion.get(0).getTranslations().getEs() + "?");
         //Respuesta correcta
-        this.setTrueResponse(new Response(listOfCountryForQuestion.get(0).getFlag(), true));
+
+        this.setTrueResponse(new Response(listOfCountryForQuestion.get(0).getTranslations().getEs(), true));
         //Seteamos respuestas incorrectas
-        this.setFailResponse(new Response(listOfCountryForQuestion.get(1).getFlag(), false));
-        this.setFailResponse2(new Response(listOfCountryForQuestion.get(2).getFlag(), false));
+        this.setFailResponse(new Response(listOfCountryForQuestion.get(1).getTranslations().getEs(), false));
+        this.setFailResponse2(new Response(listOfCountryForQuestion.get(2).getTranslations().getEs(), false));
 
     }
 

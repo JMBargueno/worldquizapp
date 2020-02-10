@@ -18,6 +18,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,13 +61,16 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     int quizzPoints;
     TextView questionTitle;
     Button optionOne, optionTwo, optionThree;
-    Button backOption;
-    Button nextOption;
     ProgressBar progressBar;
     int listPosition = 0;
     String loggedUserId;
+
     private LottieAnimationView acierto;
     private LottieAnimationView fallo;
+
+    ImageView imageViewFlag;
+
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -100,9 +105,20 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         optionOne.setBackgroundResource(R.drawable.custom_quizz_button);
         optionTwo = findViewById(R.id.buttonResponse2);
         optionThree = findViewById(R.id.buttonResponse3);
+
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(0);
 
+
+        imageViewFlag = findViewById(R.id.imageViewFlag);
+
+        //ImageButtons
+        /*btnImage = findViewById(R.id.buttonResponseCustom);
+        btnImage1 = findViewById(R.id.buttonResponse2Custom);
+        btnImage2 = findViewById(R.id.buttonResponse3Custom);*/
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setProgress(0);
 
         optionOne.setOnClickListener(this);
         optionTwo.setOnClickListener(this);
@@ -114,7 +130,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         fallo.setVisibility(View.GONE);
 
 
-
+        /*btnImage.setOnClickListener(this);
+        btnImage1.setOnClickListener(this);
+        btnImage2.setOnClickListener(this);*/
 
         service = ServiceGenerator.createService(CountryService.class);
         new CountriesAsyncTask().execute();
@@ -125,28 +143,20 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
 
         switch (v.getId()) {
-          /*  case R.id.buttonNext:
-                backOption.setVisibility(View.VISIBLE);
-                listPosition++;
-                paintView(listPosition);
-                break;
-            case R.id.buttonBack:
-                if (listPosition == 1) {
-                    backOption.setVisibility(View.INVISIBLE);
-                }
-                listPosition--;
-                paintView(listPosition);
-                break;*/
 
             case R.id.buttonResponse1:
                 if ((boolean) optionOne.getTag() == true) {
 
                     acierto.setVisibility(View.VISIBLE);
+                    acierto.setProgress(0);
+                    acierto.playAnimation();
+
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
-
                             acierto.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
                     quizzPoints += 1;
@@ -154,36 +164,37 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 } else {
 
                     fallo.setVisibility(View.VISIBLE);
+                    fallo.setProgress(0);
+                    fallo.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             fallo.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
 
 
                 }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
-
-                listPosition++;
-                paintView(listPosition);
                 break;
 
             case R.id.buttonResponse2:
                 if ((boolean) optionTwo.getTag() == true) {
 
                     acierto.setVisibility(View.VISIBLE);
+                    acierto.setProgress(0);
+                    acierto.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             acierto.setVisibility(View.GONE);
+                            acierto.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
                     quizzPoints += 1;
@@ -191,36 +202,40 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }else{
 
                     fallo.setVisibility(View.VISIBLE);
+                    fallo.setProgress(0);
+                    fallo.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             fallo.setVisibility(View.GONE);
+                            fallo.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
 
 
                 }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
 
 
-                listPosition++;
-                paintView(listPosition);
+
                 break;
             case R.id.buttonResponse3:
                 if ((boolean) optionThree.getTag() == true) {
 
                     acierto.setVisibility(View.VISIBLE);
+                    acierto.setProgress(0);
+                    acierto.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             acierto.setVisibility(View.GONE);
+                            acierto.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
                     quizzPoints += 1;
@@ -228,28 +243,30 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
                 } else {
                     fallo.setVisibility(View.VISIBLE);
+                    fallo.setProgress(0);
+                    fallo.playAnimation();
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
 
                             fallo.setVisibility(View.GONE);
+                            fallo.setVisibility(View.GONE);
+                            listPosition++;
+                            paintView(listPosition);
                         }
                     }, 2000);
-                    //Animacion fail
 
-                }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+
                 }
 
 
-                listPosition++;
-                paintView(listPosition);
+
+
                 break;
 
         }
+
+
         Log.i("VALORQUIZZ", Integer.toString(quizzPoints));
     }
 
@@ -289,10 +306,64 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
     private void paintView(int listPosition) {
 
+if(listPosition == 3){
 
+    progressBar = findViewById(R.id.progressBar);
+    progressBar.setProgress(0);
+
+    progressBar.setProgress(listPosition + 1);
+    questionTitle.setText(quiz.getQuestionList().get(listPosition).getTitle());
+
+    questionTitle.setVisibility(View.INVISIBLE);
+
+
+    /*Glide
+            .with(this)
+            .load(quiz.getQuestionList().get(listPosition).getTitle())
+            .into(imageViewFlag);*/
+
+    List<Button> buttonList = new ArrayList<>();
+    buttonList.add(optionOne);
+    buttonList.add(optionTwo);
+    buttonList.add(optionThree);
+    int randomButton;
+    int range;
+
+    for (int i = 0; i < 3; i++) {
+        Button button = null;
+
+        switch (i) {
+            case 0:
+                range = (buttonList.size() - 1) + 1 ;
+                randomButton = (int)(Math.random() * range) + 0;
+                button = buttonList.get(randomButton);
+                button.setText(quiz.getQuestionList().get(listPosition).getTrueResponse().getTitle());
+                button.setTag(quiz.getQuestionList().get(listPosition).getTrueResponse().getBooleanValue());
+                buttonList.remove(button);
+            case 1:
+                range = (buttonList.size() - 1) + 1 ;
+                randomButton = (int)(Math.random() * range) + 0;
+                button = buttonList.get(randomButton);
+                button.setText(quiz.getQuestionList().get(listPosition).getFailResponse().getTitle());
+                button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse().getBooleanValue());
+                buttonList.remove(button);
+
+                break;
+            case 2:
+
+                button = buttonList.get(0);
+                button.setText(quiz.getQuestionList().get(listPosition).getFailResponse2().getTitle());
+                button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse2().getBooleanValue());
+                buttonList.remove(button);
+
+                break;
+        }
+    }
+
+
+}
 
         if (listPosition == 5) {
-
 
             String currentUserEmail = firebaseUser.getEmail();
 
@@ -331,6 +402,7 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
 
         } else {
+
             progressBar.setProgress(listPosition + 1);
             questionTitle.setText(quiz.getQuestionList().get(listPosition).getTitle());
 
