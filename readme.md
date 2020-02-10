@@ -5,6 +5,13 @@ Worldquiz App es un proyecto interdisciplinar de 2º de Dam en Salesianos Triana
 
 # Info
 
+Branch : dmtroncoso-h2 
+
+Probar en esta rama los siguientes cambios que no se completó (el push) en última hora de clase :
+
++ Fixed : SearchView texto hint -> Filter : nombre, idioma, moneda..
++ Fixed : Nombre de los países en Español.
+
 
 
 ## Créditos
