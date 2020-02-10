@@ -44,7 +44,6 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Req
         Glide.with(v.getContext())
              .load(m.getSnippet())
                 .addListener(this)
-//                .placeholder(R.drawable.ic_flag)
              .into(ivFlag);
 
         tvTitle.setText(info[0]);
