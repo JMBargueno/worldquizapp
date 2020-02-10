@@ -21,6 +21,7 @@ import com.salesianostriana.worldquizapp.repository.CountryService;
 import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +46,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         service = ServiceGenerator.createService(CountryService.class);
         new CountriesAsyncTask().execute();
 
-
         return v;
     }
 
@@ -60,12 +60,12 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
             }else {
                 Marker m = mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(country.getLatlng().get(0), country.getLatlng().get(1)))
-                        .title(country.getTranslations().getEs()+"#"+country.getCapital()+"#"+country.getPopulation()+"#"+country.getLanguages().get(0).getName())
+                        .title(country.getTranslations().getEs()+"#"+country.getCapital()+"#"+new DecimalFormat("#.##").format(((double)country.getPopulation())/1000000)+"#"+country.getLanguages().get(0).getName())
                         .snippet(country.getFlag())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 );
 
-                m.setTag(country.getAlpha3Code());
+                //m.setTag(country.getAlpha3Code());
             }
         }
 
@@ -77,7 +77,8 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
             }
         });
 
-        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(LayoutInflater.from(getActivity())));
+        CustomInfoWindowAdapter adapter = new CustomInfoWindowAdapter(LayoutInflater.from(getActivity()));
+        mMap.setInfoWindowAdapter(adapter);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(40.0, -4.0)));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(4f));
 
