@@ -17,6 +17,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.salesianostriana.worldquizapp.model.Country;
+import com.salesianostriana.worldquizapp.model.Language;
+import com.salesianostriana.worldquizapp.model.Translations;
 import com.salesianostriana.worldquizapp.repository.CountryService;
 import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 
@@ -108,6 +110,28 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         @Override
         protected void onPostExecute(List<Country> countries) {
             listCountries = new ArrayList<>(countries);
+            Country capitalSalesiana = new Country();
+
+            List<Language> languages = new ArrayList<>();
+            Language bosquense = new Language();
+            bosquense.setName("Bosquense");
+            languages.add(bosquense);
+            List<Double> latLong = new ArrayList<>();
+            latLong.add(45.116177);
+            latLong.add(7.742615);
+            Translations translations = new Translations();
+            translations.setEs("Pais Salesiano");
+
+
+            capitalSalesiana.setTranslations(translations);
+            capitalSalesiana.setCapital("Turin");
+            capitalSalesiana.setPopulation(10000000);
+            capitalSalesiana.setLanguages(languages);
+            capitalSalesiana.setFlag("https://www.el-carabobeno.com/wp-content/uploads/2018/01/Don-Bosco.jpg");
+
+            capitalSalesiana.setLatlng(latLong);
+
+            listCountries.add(capitalSalesiana);
             getMapAsync(MapFragment.this);
         }
 
