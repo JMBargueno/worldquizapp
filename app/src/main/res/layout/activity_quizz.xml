@@ -69,7 +69,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/custom_quizz_button"/>
 
         <Button
             android:id="@+id/buttonResponse2"
@@ -78,6 +79,7 @@
             android:layout_marginTop="15dp"
             android:text="Button"
             android:textSize="24sp"
+            android:background="@drawable/custom_quizz_button"
             app:layout_constraintEnd_toEndOf="@+id/buttonResponse1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/buttonResponse1"
@@ -89,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="Button"
+            android:background="@drawable/custom_quizz_button"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/buttonResponse2"
             app:layout_constraintHorizontal_bias="0.0"
