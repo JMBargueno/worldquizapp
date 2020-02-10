@@ -144,6 +144,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
 
             case R.id.buttonResponse1:
+
+                //v.setBackground(R.drawable.custom_quizz_button_amarillo);
+
                 if ((boolean) optionOne.getTag() == true) {
 
                     acierto.setVisibility(View.VISIBLE);

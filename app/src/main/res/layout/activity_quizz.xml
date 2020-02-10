@@ -62,7 +62,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        android:background="@drawable/gradient">
 
 
         <com.airbnb.lottie.LottieAnimationView
@@ -89,7 +90,8 @@
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/custom_quizz_button"/>
+            android:background="@drawable/custom_quizz_button"
+            android:textColor="@color/whiteColor"/>
 
         <Button
             android:id="@+id/buttonResponse2"
@@ -102,7 +104,8 @@
             app:layout_constraintEnd_toEndOf="@+id/buttonResponse1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/buttonResponse1"
-            app:layout_constraintTop_toBottomOf="@+id/buttonResponse1" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonResponse1"
+            android:textColor="@color/whiteColor"/>
 
         <Button
             android:id="@+id/buttonResponse3"
@@ -116,7 +119,8 @@
             app:layout_constraintEnd_toEndOf="@+id/buttonResponse2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/buttonResponse2"
-            app:layout_constraintTop_toBottomOf="@+id/buttonResponse2" />
+            app:layout_constraintTop_toBottomOf="@+id/buttonResponse2"
+            android:textColor="@color/whiteColor" />
 
         <ProgressBar
             android:id="@+id/progressBar"
