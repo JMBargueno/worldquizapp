@@ -10,9 +10,11 @@ import retrofit2.Response;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -103,19 +105,16 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         optionOne.setBackgroundResource(R.drawable.custom_quizz_button);
         optionTwo = findViewById(R.id.buttonResponse2);
         optionThree = findViewById(R.id.buttonResponse3);
-        nextOption = findViewById(R.id.buttonNext);
-        backOption = findViewById(R.id.buttonBack);
+
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(0);
-        nextOption.setOnClickListener(this);
-        backOption.setOnClickListener(this);
+
 
         optionOne.setOnClickListener(this);
         optionTwo.setOnClickListener(this);
         optionThree.setOnClickListener(this);
 
-        backOption.setVisibility(View.INVISIBLE);
-        nextOption.setVisibility(View.INVISIBLE);
+
         acierto = findViewById(R.id.animacionAcierto);
         acierto.setVisibility(View.GONE);
         fallo = findViewById(R.id.animacionFallo);
@@ -125,7 +124,11 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
         service = ServiceGenerator.createService(CountryService.class);
         new CountriesAsyncTask().execute();
 
+
+
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -151,13 +154,31 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
 
                     acierto.setVisibility(View.VISIBLE);
+                    Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
+                        public void run() {
+                            acierto.setVisibility(View.GONE);
+                        }
+                    }, 3400);
+
+
                     
                     quizzPoints += 1;
                 } else {
                     fallo.setVisibility(View.VISIBLE);
+                    Handler handler2 = new Handler();
+                    handler2.postDelayed(new Runnable() {
+                        public void run() {
+
+                            fallo.setVisibility(View.GONE);
+                        }
+                    }, 3400);
                 }
 
-                checkResponse();
+
+                        listPosition++;
+                        paintView(listPosition);
+
 
                 try {
                     Thread.sleep(1500);
@@ -172,9 +193,21 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 if ((boolean) optionTwo.getTag() == true) {
 
                     acierto.setVisibility(View.VISIBLE);
+                    Handler handler3 = new Handler();
+                    handler3.postDelayed(new Runnable() {
+                        public void run() {
+                            acierto.setVisibility(View.GONE);
+                        }
+                    }, 3400);
                     quizzPoints += 1;
                 }else{
                     fallo.setVisibility(View.VISIBLE);
+                    Handler handler4 = new Handler();
+                    handler4.postDelayed(new Runnable() {
+                        public void run() {
+                            fallo.setVisibility(View.GONE);
+                        }
+                    }, 3400);
 
                 }
                 checkResponse();
@@ -190,9 +223,23 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
             case R.id.buttonResponse3:
                 if ((boolean) optionThree.getTag() == true) {
                     acierto.setVisibility(View.VISIBLE);
+                    acierto.playAnimation();
+                    Handler handler5 = new Handler();
+                    handler5.postDelayed(new Runnable() {
+                        public void run() {
+                            acierto.setVisibility(View.GONE);
+                        }
+                    }, 3400);
                     quizzPoints += 1;
                 } else {
                     fallo.setVisibility(View.VISIBLE);
+                    fallo.playAnimation();
+                    Handler handler6 = new Handler();
+                    handler6.postDelayed(new Runnable() {
+                        public void run() {
+                            fallo.setVisibility(View.GONE);
+                        }
+                    }, 3400);
                 }
                 checkResponse();
                 try {
@@ -200,8 +247,10 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                listPosition++;
-                paintView(listPosition);
+                        listPosition++;
+                        paintView(listPosition);
+
+
                 break;
 
 
