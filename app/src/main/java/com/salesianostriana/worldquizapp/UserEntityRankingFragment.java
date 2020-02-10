@@ -32,17 +32,9 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link IRankingListener}
- * interface.
- */
 public class UserEntityRankingFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private IRankingListener mListener;
     Context context;
@@ -59,8 +51,6 @@ public class UserEntityRankingFragment extends Fragment {
     public UserEntityRankingFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static UserEntityRankingFragment newInstance(int columnCount) {
         UserEntityRankingFragment fragment = new UserEntityRankingFragment();
         Bundle args = new Bundle();
@@ -92,12 +82,9 @@ public class UserEntityRankingFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-
         }
 
         listaDummyUsuarios = new ArrayList<>();
-
-
 
         myDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -113,10 +100,8 @@ public class UserEntityRankingFragment extends Fragment {
                     // Task failed with an exception
                     Exception exception = task.getException();
                 }
-
             }
         });
-
         return view;
     }
 
@@ -165,17 +150,15 @@ public class UserEntityRankingFragment extends Fragment {
 
                     item.setIcon(R.drawable.ic_filter_green);
 
-
                     Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
 
                     Toasty.info(context, "Ordenado por efectividad", Toast.LENGTH_SHORT).show();
                     Collections.sort(listaDummyUsuarios, new comparadorEfectividad());
                     adapter = new MyUserEntityRecyclerViewAdapter(listaDummyUsuarios,mListener,context);
                     recyclerView.setAdapter(adapter);
-
                 }
                 ordenAsc = !ordenAsc;
-                //TODO orederRanking();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -184,10 +167,7 @@ public class UserEntityRankingFragment extends Fragment {
     @Override
     public void onResume() {
 
-
         super.onResume();
-        Toasty.info(context, "Prueba de totus", Toast.LENGTH_SHORT).show();
-
 
         myDB.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -203,14 +183,8 @@ public class UserEntityRankingFragment extends Fragment {
                     // Task failed with an exception
                     Exception exception = task.getException();
                 }
-
-
             }
         });
-
-
-
-
     }
 }
 
