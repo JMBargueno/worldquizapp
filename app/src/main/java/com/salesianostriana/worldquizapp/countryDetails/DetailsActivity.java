@@ -18,6 +18,7 @@ import com.salesianostriana.worldquizapp.repository.UnsplashService;
 import com.salesianostriana.worldquizapp.repository.retrofit.UnsplashGenerator;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 
 import retrofit2.Call;
@@ -113,7 +114,7 @@ public class DetailsActivity extends AppCompatActivity /*implements ResultFragme
                     .load(R.drawable.ic_people)
                     .into(imageViewPeople);
 
-            txtPeople.setText(getIntent().getExtras().get("peopleCountry").toString());
+            txtPeople.setText((new DecimalFormat("#.##").format((double)getIntent().getExtras().get("peopleCountry")/1000000))+" M");
 
             Glide
                     .with(ctx)
