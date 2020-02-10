@@ -156,6 +156,7 @@ public class CountryFragment extends Fragment {
         inflater.inflate(R.menu.country_menu, menu);
         MenuItem itemFilter = menu.findItem(R.id.searchViewFilter);
         SearchView searchView = (SearchView) itemFilter.getActionView();
+        searchView.setQueryHint("Filter : nombre, idioma, moneda");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

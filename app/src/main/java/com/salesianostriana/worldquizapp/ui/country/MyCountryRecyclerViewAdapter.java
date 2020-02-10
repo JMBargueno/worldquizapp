@@ -57,7 +57,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
 
         holder.cardView.setAnimation(AnimationUtils.loadAnimation(ctx, R.anim.fade_scale_animation));
 
-        holder.txtName.setText(holder.mItem.getName());
+        holder.txtName.setText(holder.mItem.getTranslations().getEs());
         holder.txtCurrency.setText(holder.mItem.getCurrencies().get(0).getCode());
         holder.txtCapital.setText(holder.mItem.getCapital());
         holder.txtLanguage.setText(holder.mItem.getLanguages().get(0).getName());
@@ -98,7 +98,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
                     intent.putExtra("peopleCountry", (double)(holder.mItem.getPopulation()));
                     intent.putExtra("capitalCountry", holder.mItem.getCapital());
                     intent.putExtra("currencyCountry", holder.mItem.getCurrencies().get(0).getCode());
-                    intent.putExtra("languageCountry", holder.mItem.getLanguages().get(0).getName());
+                    intent.putExtra("languageCountry", holder.mItem.getTranslations().getEs());
                     ctx.startActivity(intent);
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
@@ -128,7 +128,7 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
                 filteredList.addAll(listcountriesFilter);
             }else {
                 for (Country country : listcountriesFilter){
-                    if(country.getName().toLowerCase().contains(constraint.toString().toLowerCase())){
+                    if((String.valueOf(country.getTranslations().getEs())).toLowerCase().contains(constraint.toString().toLowerCase())){
                         filteredList.add(country);
                     }else if ((String.valueOf(country.getCurrencies().get(0).getCode())).toLowerCase().contains(constraint.toString().toLowerCase())){
                         filteredList.add(country);
