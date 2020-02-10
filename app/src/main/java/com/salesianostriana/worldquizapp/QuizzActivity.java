@@ -7,8 +7,10 @@ import lombok.NonNull;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,12 +41,16 @@ import com.salesianostriana.worldquizapp.model.Quiz;
 import com.salesianostriana.worldquizapp.repository.CountryService;
 import com.salesianostriana.worldquizapp.repository.retrofit.ServiceGenerator;
 import com.salesianostriana.worldquizapp.service.QuizGenerator;
+import android.widget.PopupWindow;
+import  android.widget.RelativeLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static android.graphics.BlendMode.COLOR;
 
 public class QuizzActivity extends AppCompatActivity implements View.OnClickListener {
     Context context;
@@ -56,6 +64,11 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     ProgressBar progressBar;
     int listPosition = 0;
     String loggedUserId;
+    private LottieAnimationView acierto;
+    private LottieAnimationView fallo;
+    private RelativeLayout mRelativeLayout;
+    private PopupWindow animacion;
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -81,15 +94,19 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizz);
+        quizzPoints = 0;
+
+        listPosition = 0;
 
         questionTitle = findViewById(R.id.textViewQuestion);
         optionOne = findViewById(R.id.buttonResponse1);
+        optionOne.setBackgroundResource(R.drawable.custom_quizz_button);
         optionTwo = findViewById(R.id.buttonResponse2);
         optionThree = findViewById(R.id.buttonResponse3);
         nextOption = findViewById(R.id.buttonNext);
         backOption = findViewById(R.id.buttonBack);
         progressBar = findViewById(R.id.progressBar);
-
+        progressBar.setProgress(0);
         nextOption.setOnClickListener(this);
         backOption.setOnClickListener(this);
 
@@ -99,6 +116,10 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
         backOption.setVisibility(View.INVISIBLE);
         nextOption.setVisibility(View.INVISIBLE);
+        acierto = findViewById(R.id.animacionAcierto);
+        acierto.setVisibility(View.GONE);
+        fallo = findViewById(R.id.animacionFallo);
+        fallo.setVisibility(View.GONE);
 
 
         service = ServiceGenerator.createService(CountryService.class);
@@ -108,8 +129,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
-            case R.id.buttonNext:
+          /*  case R.id.buttonNext:
 
                 backOption.setVisibility(View.VISIBLE);
                 listPosition++;
@@ -122,19 +144,44 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }
                 listPosition--;
                 paintView(listPosition);
-                break;
+                break;*/
 
             case R.id.buttonResponse1:
                 if ((boolean) optionOne.getTag() == true) {
+
+
+                    acierto.setVisibility(View.VISIBLE);
+                    
                     quizzPoints += 1;
+                } else {
+                    fallo.setVisibility(View.VISIBLE);
                 }
 
+                checkResponse();
+
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 listPosition++;
                 paintView(listPosition);
                 break;
+
             case R.id.buttonResponse2:
                 if ((boolean) optionTwo.getTag() == true) {
+
+                    acierto.setVisibility(View.VISIBLE);
                     quizzPoints += 1;
+                }else{
+                    fallo.setVisibility(View.VISIBLE);
+
+                }
+                checkResponse();
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
                 listPosition++;
@@ -142,15 +189,26 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.buttonResponse3:
                 if ((boolean) optionThree.getTag() == true) {
+                    acierto.setVisibility(View.VISIBLE);
                     quizzPoints += 1;
+                } else {
+                    fallo.setVisibility(View.VISIBLE);
                 }
-
+                checkResponse();
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 listPosition++;
                 paintView(listPosition);
                 break;
 
+
         }
         Log.i("VALORQUIZZ", Integer.toString(quizzPoints));
+
+
     }
 
     public class CountriesAsyncTask extends AsyncTask<List<Country>, Void, List<Country>> {
@@ -188,6 +246,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void paintView(int listPosition) {
+        optionOne.setBackgroundColor(getResources().getColor(R.color.grayColor));
+        optionTwo.setBackgroundColor(getResources().getColor(R.color.grayColor));
+        optionThree.setBackgroundColor(getResources().getColor(R.color.grayColor));
 
 
         if (listPosition == 5) {
@@ -224,8 +285,10 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
                 }
             });
             builderFinish.setCancelable(false);
-            builderFinish.setMessage("Ha ganado " + Integer.toString(quizzPoints));
+            builderFinish.setMessage("¡Ha ganado " + Integer.toString(quizzPoints) + " puntos!");
             builderFinish.show();
+
+
 
         } else {
             progressBar.setProgress(listPosition + 1);
@@ -236,26 +299,31 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
             buttonList.add(optionTwo);
             buttonList.add(optionThree);
             int randomButton;
+            int range;
 
             for (int i = 0; i < 3; i++) {
                 Button button = null;
 
                 switch (i) {
                     case 0:
-                        randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size() - 1);
+                        range = (buttonList.size() - 1) + 1 ;
+                        randomButton = (int)(Math.random() * range) + 0;
+
                         button = buttonList.get(randomButton);
                         button.setText(quiz.getQuestionList().get(listPosition).getTrueResponse().getTitle());
                         button.setTag(quiz.getQuestionList().get(listPosition).getTrueResponse().getBooleanValue());
                         buttonList.remove(button);
                         break;
                     case 1:
-                        randomButton = ThreadLocalRandom.current().nextInt(0, buttonList.size() - 1);
+                        range = (buttonList.size() - 1) + 1 ;
+                        randomButton = (int)(Math.random() * range) + 0;
                         button = buttonList.get(randomButton);
                         button.setText(quiz.getQuestionList().get(listPosition).getFailResponse().getTitle());
                         button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse().getBooleanValue());
                         buttonList.remove(button);
                         break;
                     case 2:
+
                         button = buttonList.get(0);
                         button.setText(quiz.getQuestionList().get(listPosition).getFailResponse2().getTitle());
                         button.setTag(quiz.getQuestionList().get(listPosition).getFailResponse2().getBooleanValue());
@@ -269,5 +337,9 @@ public class QuizzActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+
+private void checkResponse(){
+
+}
 
 }

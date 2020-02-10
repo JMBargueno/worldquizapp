@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,17 +21,21 @@ import com.salesianostriana.worldquizapp.countryDetails.DetailsActivity;
 import com.salesianostriana.worldquizapp.ui.country.CountryFragment.OnListFragmentInteractionListener;
 import com.salesianostriana.worldquizapp.model.Country;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountryRecyclerViewAdapter.ViewHolder> {
+public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountryRecyclerViewAdapter.ViewHolder> implements Filterable {
 
     private final List<Country> mValues;
+    private final List<Country> listcountriesFilter;
     private final OnListFragmentInteractionListener mListener;
     String flagUrl;
     Context ctx;
 
     public MyCountryRecyclerViewAdapter(List<Country> items, OnListFragmentInteractionListener listener) {
         mValues = items;
+        listcountriesFilter = new ArrayList<>(items);
         mListener = listener;
     }
 
@@ -104,6 +110,45 @@ public class MyCountryRecyclerViewAdapter extends RecyclerView.Adapter<MyCountry
     public int getItemCount() {
         return mValues.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+
+        //Run on background thread
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<Country> filteredList = new ArrayList<>();
+
+            if(constraint.toString().isEmpty()){
+                filteredList.addAll(listcountriesFilter);
+            }else {
+                for (Country country : listcountriesFilter){
+                    if(country.getName().toLowerCase().contains(constraint.toString().toLowerCase())){
+                        filteredList.add(country);
+                    }
+
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+
+            return filterResults;
+        }
+
+        //Run on a ui thread
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            mValues.clear();
+            mValues.addAll((Collection<? extends Country>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;

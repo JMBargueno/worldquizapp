@@ -5,11 +5,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,6 +49,11 @@ public class CountryFragment extends Fragment {
     CountryService service;
     boolean ordenAsc = false;
     List<Country> filterCountries;
+    MenuItem itemFilter;
+    int countCurrency = 0;
+    int countLanguage = 0;
+    MyCountryRecyclerViewAdapter adapter;
+
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -147,31 +154,66 @@ public class CountryFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.country_menu, menu);
+        MenuItem itemFilter = menu.findItem(R.id.searchViewFilter);
+        SearchView searchView = (SearchView) itemFilter.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()){
             case R.id.filtroCountry:
 
-                if(ordenAsc){
-                    item.setIcon(R.drawable.ic_filter_black_android);
+                break;
+
+            case R.id.filterCurrency:
+                countCurrency++;
+
+                if(countCurrency%2 != 0){
+                    item.setChecked(true);
+                    Toasty.info(context, "Ordenado por moneda", Toasty.LENGTH_SHORT).show();
+                    Collections.sort(filterCountries, new ComparatorCurrency());
+                    recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
+
+                }else if(countCurrency%2 == 0){
+                    item.setChecked(false);
+                    new CountriesAsyncTask().execute();
+                }
+
+
+                break;
+
+            case R.id.filterLanguage:
+                countLanguage++;
+
+                if(countLanguage%2 != 0){
+                    item.setChecked(true);
                     Toasty.info(context, "Ordenado por idioma", Toasty.LENGTH_SHORT).show();
                     Collections.sort(filterCountries, new ComparatorLanguage());
                     recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
 
-                }else {
-
-                    item.setIcon(R.drawable.ic_filter_android);
-                    Toasty.info(context, "Ordenado por moneda", Toasty.LENGTH_SHORT).show();
-                    //Collections.sort(filterCountries);
-                    Collections.sort(filterCountries, new ComparatorCurrency());
-                    recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(filterCountries, mListener));
-
+                }else if(countLanguage%2 == 0){
+                    item.setChecked(false);
+                    new CountriesAsyncTask().execute();
                 }
-                ordenAsc = !ordenAsc;
+
+
+
                 break;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -222,8 +264,8 @@ public class CountryFragment extends Fragment {
         protected void onPostExecute(List<Country> countries) {
             Collections.sort(countries);
 
-            recyclerView.setAdapter(new MyCountryRecyclerViewAdapter(countries, mListener));
-            Toast.makeText(context, "Countries loaded", Toast.LENGTH_SHORT).show();
+            adapter = new MyCountryRecyclerViewAdapter(countries, mListener);
+            recyclerView.setAdapter(adapter);
 
             filterCountries = new ArrayList<>(countries) ;
 

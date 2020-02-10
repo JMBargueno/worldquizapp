@@ -22,7 +22,7 @@ UserEntity {
         }
         else{
 
-            return totalPoints/attemps;
+            return (totalPoints/attemps)*20;
         }
     }
 

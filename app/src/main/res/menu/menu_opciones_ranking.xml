@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/filtroRanking"
-        android:icon="@drawable/ic_filter_android"
+        android:icon="@drawable/ic_filter_green"
         android:title="Item"
         app:showAsAction="ifRoom" />
 </menu>

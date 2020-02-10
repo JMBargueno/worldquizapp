@@ -14,6 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <androidx.cardview.widget.CardView
             android:layout_width="409dp"
             android:layout_height="wrap_content"
@@ -35,12 +36,33 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animacionFallo"
+                    android:layout_width="430dp"
+                    android:layout_height="430dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewQuestion"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="4970-unapproved-cross.json"></com.airbnb.lottie.LottieAnimationView>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animacionAcierto"
+                    android:layout_width="430dp"
+                    android:layout_height="430dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewQuestion"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="15179-confirm-popup.json"></com.airbnb.lottie.LottieAnimationView>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="422dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,12 +83,13 @@
 
         <Button
             android:id="@+id/buttonResponse1"
-            android:layout_width="250dp"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:text="Button"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="Button"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/buttonResponse1"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/buttonResponse1"
@@ -87,6 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="Button"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@+id/buttonResponse2"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/buttonResponse2"
@@ -117,6 +142,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonResponse3"
             app:layout_constraintVertical_bias="0.505" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
